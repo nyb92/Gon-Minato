@@ -254,23 +254,29 @@ async function fetchNationalRanking() {
     const query = `
         PREFIX : <http://example.org/sport-hlm#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-        SELECT ?regLabel (SUM(?licences) AS ?total) (AVG(?taux) AS ?hlm) WHERE {
-             # Get Licences
-             {
-                 SELECT ?reg (SUM(?l) as ?licences) WHERE {
-                     ?p :numLicences ?l ;
-                        :hasPopulationGroup/ :locatedInDepartment/ :locatedInRegion ?reg .
-                 } GROUP BY ?reg
-             }
-             # Get HLM
-             {
-                 SELECT ?reg (AVG(?t) as ?taux) WHERE {
-                     ?d :hasHousingData/ :proportionHLM ?t ;
-                        :locatedInRegion ?reg .
-                 } GROUP BY ?reg
-             }
-             ?reg rdfs:label ?regLabel .
-        } GROUP BY ?regLabel ORDER BY DESC(?total) LIMIT 10
+        
+        SELECT ?regLabel 
+               (SUM(?licences) AS ?totalLicences) 
+               (AVG(?taux) AS ?hlm) 
+        WHERE {
+            ?reg a :Region ;
+                 rdfs:label ?regLabel .
+            
+            ?dep :locatedInRegion ?reg .
+            
+            ?group :locatedInDepartment ?dep .
+            
+            ?p :hasPopulationGroup ?group ;
+               :numLicences ?licences .
+            
+            OPTIONAL {
+                ?dep :hasHousingData ?hd .
+                ?hd :proportionHLM ?taux .
+            }
+        }
+        GROUP BY ?regLabel
+        ORDER BY DESC(?totalLicences)
+        LIMIT 15
     `;
 
     const data = await runQuery(query);
@@ -282,9 +288,8 @@ async function fetchNationalRanking() {
         tr.innerHTML = `
             <td><strong>${index + 1}</strong></td>
             <td>${row.regLabel.value}</td>
-            <td>${parseInt(row.total.value).toLocaleString()}</td>
+            <td>${parseInt(row.totalLicences.value).toLocaleString()}</td>
             <td>${parseFloat(row.hlm.value || 0).toFixed(1)}%</td>
-            <td>-</td>
         `;
         tbody.appendChild(tr);
     });
