@@ -5,6 +5,10 @@
 ![GraphDB](https://img.shields.io/badge/GraphDB-10.6.3-orange.svg)
 ![Node.js](https://img.shields.io/badge/node.js-18+-brightgreen.svg)
 
+> 📚 **Navigation Rapide** : Nouveau sur le projet ? Consultez le [Guide de Navigation](DOCS_NAVIGATION.md) pour trouver rapidement l'information dont vous avez besoin.
+
+---
+
 ## 📖 Description
 
 Projet d'analyse sémantique croisant les données de **licences sportives** (2023) et de **logements sociaux (HLM)** en France métropolitaine. Utilise le Web Sémantique (RDF/OWL) avec GraphDB pour explorer les corrélations entre pratique sportive et politique du logement social.
