@@ -97,24 +97,117 @@ Créer une plateforme d'analyse sémantique permettant de croiser et visualiser 
 
 ## 🚀 Fonctionnalités de l'Application
 
-### Dashboard Principal
-- KPIs : Total licences, taux HLM moyen, sport top
-- Pyramide des âges interactive
-- Top 5 sports (filtrable par genre)
-- Mode comparaison entre 2 régions
-- Graphique radar multidimensionnel
-- Classement national des régions
+### 🏠 Dashboard Principal
+**Interface de pilotage complète avec analyse comparative**
 
-### Carte Interactive
-- Visualisation géographique de la France
-- Bulles proportionnelles aux licences
-- Tooltips avec détails par région
-- Filtres par sport (à implémenter)
+- **KPIs Temps Réel** : Licences totales, Taux HLM, Sport #1
+- **Pyramide des Âges** : Distribution interactive des licenciés
+- **Top 5 Sports** avec filtres dynamiques :
+  - Tous / Hommes / Femmes
+  - Mise à jour instantanée sans rechargement
+  - Graphique horizontal animé
+- **Répartition H/F** : Doughnut chart interactif
+- **Mode Comparaison Avancé** :
+  - Sélection de 2 régions
+  - Graphique radar multi-dimensionnel
+  - KPIs de différence (+/- colorés)
+  - Toggle activable à la volée
+- **Classement National** : Top 15 régions (< 3s)
+- **Insights Automatiques** : Analyses textuelles générées dynamiquement
 
-### Analyses Avancées
-- **Page Sports** : Top sports nationaux, stats par genre
-- **Page Corrélations** : Graphiques de dispersion Sport/HLM
-- **Page Stories** : Narratifs générés automatiquement
+### 🗺️ Carte Interactive
+**Visualisation géographique avancée**
+
+- Carte de France SVG interactive (zoom, pan)
+- **Bulles proportionnelles** :
+  - Taille = nombre de licences (échelle log)
+  - Couleur = taux HLM (gradient rouge-vert)
+  - Animation progressive
+- **Tooltips enrichis** : Nom, licences, HLM, sport top
+- Détection automatique des contours
+- Filtres par sport/âge/genre (en dev)
+
+### 🏅 Top Sports
+**Analyse approfondie des disciplines**
+
+- **Classement National** : Top 20 sports
+- **Analyse Genre** :
+  - Pyramide Hommes vs Femmes
+  - % répartition par sport
+  - Sports les + féminins/masculins
+  - Identification sports mixtes
+- **Répartition par Âge** :
+  - Distribution par tranche
+  - Sports "jeunes" vs "seniors"
+  - Graphique en aires empilées
+- **Recherche & Filtres** :
+  - Recherche textuelle
+  - Filtre genre dominant
+  - Seuil popularité
+- **Export** : CSV, JSON, clipboard
+
+### 📊 Corrélations
+**Analyse statistique Sport × HLM**
+
+- **Graphique de Dispersion** :
+  - Axe X = Taux HLM (%)
+  - Axe Y = Licences / 1000 hab
+  - Taille points = population
+- **Ligne de Tendance** :
+  - Régression linéaire temps réel
+  - Coefficient R²
+  - Équation affichée
+- **Insights Statistiques** :
+  - Coefficient Pearson
+  - P-value + significativité
+  - Interprétation automatique
+- **Analyse par Sport** : Corrélation individuelle
+- **Graphiques Complémentaires** :
+  - Histogrammes distributions
+  - Heatmap corrélations multi-var
+- **Interactions** : Zoom, sélection, comparaison temporelle
+
+### 📖 Stories
+**Data storytelling automatique**
+
+- **5 Stories Générées** :
+  1. "La Région Sportive" (+ licences)
+  2. "Les Sports Mixtes" (parité H/F)
+  3. "Le Phénomène Jeune" (< 18 ans)
+  4. "La Dynamique Senior" (> 60 ans)
+  5. "Désert Sportif" (moins licences)
+- **Présentation** : Cards visuelles + icônes
+- **Texte Narratif** : Contextualisé avec chiffres clés
+- **Graphiques Miniatures** : Intégrés aux stories
+- **Mise à Jour** : Automatique (données SPARQL live)
+- **Analyses Avancées** (roadmap) :
+  - Comparaisons inter-régionales
+  - Détection tendances temporelles
+  - Anomalies et outliers
+  - Prédictions ML
+
+### ⚡ Performance & UX
+
+**Optimisations Techniques**
+- ⚡ Requêtes parallèles (3-5 simultanées)
+- 🗄️ Cache navigateur activé
+- 🎯 Lazy loading graphiques
+- 📦 Compression gzip
+- ⏱️ Debouncing sur filtres
+- 🔄 Update incrémentiel (no full reload)
+- 🚀 Promise.all pour batch queries
+
+**Responsive Design**
+- 📱 Mobile-first approach
+- 💻 Tablet optimisé
+- 🖥️ Desktop full-featured
+- Breakpoints : 320px, 768px, 1024px, 1440px
+
+**Animations**
+- Transitions CSS natives (60fps)
+- Chart.js animations fluides
+- Loading spinners contextuels
+- Feedback visuel immédiat
 
 ---
 

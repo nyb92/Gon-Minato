@@ -252,36 +252,255 @@ L'ontologie définit le modèle sémantique du projet.
 
 ## 🌐 Application Web
 
-### Pages Disponibles
+### Pages et Fonctionnalités
 
 #### 🏠 Dashboard Principal (`index.html`)
-- KPIs régionaux (licences, HLM, sport top)
-- Pyramide des âges
-- Top 5 sports (filtrable H/F)
-- Mode comparaison 2 régions
-- Classement national
+**Vue d'ensemble interactive et comparative des données régionales**
+
+**📊 KPIs Dynamiques**
+- Total des licences sportives (mise à jour en temps réel)
+- Taux moyen de logements HLM
+- Sport le plus pratiqué (avec filtre H/F)
+
+**📈 Graphiques Interactifs**
+- **Pyramide des Âges** : Distribution des licenciés par tranche d'âge
+  - Histogramme en barres empilées
+  - Comparaison possible entre 2 régions
+  - Animation lors du chargement
+  
+- **Top 5 Sports** : Classement des sports les plus pratiqués
+  - Graphique horizontal interactif
+  - **Filtres en temps réel** : Tous / Hommes / Femmes
+  - Mise à jour dynamique sans rechargement
+  - Couleurs distinctives par genre
+  
+- **Répartition Hommes/Femmes** : Doughnut chart
+  - Proportions en pourcentage
+  - Animation interactive au survol
+  - Légende dynamique
+
+**🔄 Mode Comparaison**
+- Sélection de 2 régions simultanément
+- **Graphique Radar** multi-dimensionnel :
+  - Taux HLM comparé
+  - Pourcentage de femmes
+  - Volume de licences normalisé
+- **KPIs de différence** :
+  - Δ Licences (affichage +/- coloré)
+  - Δ Taux HLM
+- Toggle activable/désactivable à la volée
+
+**🏆 Classement National**
+- Tableau des 15 régions
+- Tri par nombre total de licences
+- Colonnes : Rang, Région, Licences, Taux HLM
+- Mise à jour automatique au chargement
+- **Performance optimisée** : < 3 secondes
+
+**💡 Insights Automatiques**
+- Analyse textuelle générée dynamiquement
+- Comparaisons intelligentes en mode dual
+- Adaptation au contexte (région unique / comparaison)
+
+---
 
 #### 🗺️ Carte Interactive (`map.html`)
-- Visualisation géographique
-- Bulles proportionnelles aux licences
-- Filtres par sport
+**Visualisation géographique des licences sportives**
 
-#### 🏆 Top Sports (`sports.html`)
-- Classement national des sports
-- Stats par genre et âge
+**🌍 Carte de France**
+- Rendu SVG interactif des régions
+- Détection automatique des contours administratifs
+- Zoom et pan fluides
+
+**🎯 Bulles Proportionnelles**
+- Taille proportionnelle au nombre de licences
+- Échelle logarithmique pour meilleure lisibilité
+- Animation d'apparition progressive
+
+**🎨 Code Couleur**
+- Gradient basé sur le taux HLM
+- Rouge (taux élevé) → Vert (taux faible)
+- Légende interactive
+
+**ℹ️ Tooltips Enrichis**
+- Nom de la région
+- Nombre total de licences
+- Taux HLM moyen
+- Sport #1 local
+- Affichage au survol
+
+**🔍 Filtres** (en développement)
+- Sélection par sport
+- Sélection par tranche d'âge
+- Sélection par genre
+
+---
+
+#### 🏅 Top Sports (`sports.html`)
+**Analyse approfondie des disciplines sportives**
+
+**📊 Classement National**
+- Top 20 sports les plus pratiqués
+- Graphique en barres horizontal
+- Mise à jour en temps réel
+
+**⚖️ Analyse Genre**
+- **Graphique dual** : Pyramide Hommes vs Femmes
+- Pourcentage de répartition par sport
+- Sports les plus féminins / masculins
+- Identification des sports mixtes
+
+**👶 Répartition par Âge**
+- Distribution par tranche d'âge pour chaque sport
+- Identification des sports "jeunes" vs "seniors"
+- Graphique en aires empilées
+
+**🔎 Recherche et Filtres**
+- Recherche textuelle de sport
+- Filtre par genre dominant
+- Filtre par popularité (seuil minimum de licences)
+
+**💾 Export de Données**
+- Export CSV des résultats
+- Export JSON pour intégrations
+- Copie vers clipboard
+
+---
 
 #### 📊 Corrélations (`correlation.html`)
-- Analyse Sport vs HLM
-- Graphiques de dispersion
+**Analyse statistique Sport × HLM**
+
+**📈 Graphique de Dispersion**
+- Axe X : Taux HLM (%)
+- Axe Y : Licences pour 1000 habitants
+- Chaque point = 1 région
+- Taille des points = population relative
+
+**📉 Ligne de Tendance**
+- Régression linéaire calculée en temps réel
+- Affichage du coefficient de corrélation (R²)
+- Équation de la droite
+
+**🎯 Insights Statistiques**
+- Coefficient de Pearson
+- P-value (significativité)
+- Interprétation automatique :
+  - Corrélation positive/négative
+  - Forte/moyenne/faible
+  - Significative ou non
+
+**🔍 Analyse par Sport**
+- Sélection d'un sport spécifique
+- Corrélation Sport individuel × HLM
+- Comparaison avec moyenne nationale
+
+**📊 Graphiques Complémentaires**
+- Distribution HLM par région (histogramme)
+- Distribution licences par région (histogramme)
+- Heatmap corrélations multi-variables
+
+**🔄 Interactions**
+- Zoom sur zone d'intérêt
+- Sélection de points pour détails
+- Comparaison temporelle (2021-2023)
+
+---
 
 #### 📖 Stories (`stories.html`)
-- Narratifs dynamiques générés automatiquement
+**Narratifs dynamiques et data storytelling**
 
-### Technologies
-- **Frontend** : HTML5, CSS3, JavaScript (Vanilla)
-- **Charts** : Chart.js
-- **Proxy** : Node.js + Express + CORS
-- **Data** : SPARQL → GraphDB
+**📚 Stories Générées Automatiquement**
+1. **"La Région Sportive"** : Région avec le + de licences
+2. **"Les Sports Mixtes"** : Parité H/F la plus équilibrée
+3. **"Le Phénomène Jeune"** : Sport le + pratiqué chez les <18 ans
+4. **"La Dynamique Senior"** : Sport le + pratiqué chez les >60 ans
+5. **"Désert Sportif"** : Région avec le moins de licences
+
+**🎨 Présentation**
+- Cards visuelles avec icônes
+- Texte narratif contextualisé
+- Chiffres clés mis en valeur
+- Graphiques miniatures intégrés
+
+**🔄 Mise à Jour**
+- Régénération automatique à chaque visite
+- Basée sur données SPARQL en temps réel
+- Adaptation au dataset courant
+
+**💡 Analyses Avancées** (à venir)
+- Comparaisons inter-régionales intelligentes
+- Détection de tendances temporelles
+- Anomalies et outliers
+- Prédictions basées sur historique
+
+---
+
+### Technologies et Architecture
+
+**Frontend**
+- **HTML5** : Structure sémantique moderne
+- **CSS3** : 
+  - Flexbox/Grid pour layouts responsive
+  - Animations CSS natives
+  - Variables CSS pour thème cohérent
+  - Dark mode compatible
+- **JavaScript (Vanilla ES6+)** :
+  - Pas de framework (performance optimale)
+  - Async/Await pour requêtes
+  - Modules ES6
+  - Promise.all pour parallélisation
+
+**Visualisation**
+- **Chart.js 4.x** : 
+  - Bar charts, Line charts, Doughnut, Radar
+  - Animations fluides
+  - Tooltips personnalisés
+  - Responsive design
+- **Leaflet.js** (carte) : Tuiles OpenStreetMap
+- **D3.js** (optionnel) : Graphes avancés
+
+**Communication**
+- **Fetch API** : Requêtes HTTP modernes
+- **Proxy CORS** : Node.js + Express
+  - Gestion des preflight OPTIONS
+  - Headers CORS permissifs (dev)
+  - Logging des requêtes
+  - Gestion d'erreurs robuste
+
+**Data Flow**
+```
+User Interaction
+    ↓
+JavaScript Event
+    ↓
+SPARQL Query Builder
+    ↓
+Fetch → Proxy (8080)
+    ↓
+GraphDB (7200)
+    ↓
+JSON Response
+    ↓
+Data Parser
+    ↓
+Chart.js Update
+    ↓
+UI Render
+```
+
+**Performance**
+- ⚡ Requêtes parallèles (3-5 simultanées)
+- 🗄️ Cache navigateur activé
+- 🎯 Lazy loading des graphiques
+- 📦 Compression gzip
+- ⏱️ Debouncing sur filtres
+- 🔄 Update incrémentiel (pas de full reload)
+
+**Responsive Design**
+- 📱 Mobile-first approach
+- 💻 Tablet optimisé
+- 🖥️ Desktop full-featured
+- Breakpoints : 320px, 768px, 1024px, 1440px
 
 ---
 
