@@ -283,6 +283,16 @@ L'ontologie définit le modèle sémantique du projet.
 
 ## 🔍 Requêtes SPARQL Optimisées
 
+📖 **[Guide Complet des Requêtes SPARQL](SPARQL_QUERIES.md)**
+
+Ce document contient :
+- 🧪 Requêtes de validation du graphe
+- 🌍 Enrichissement Wikidata (départements & régions)
+- 📊 Analyses statistiques (sport, HLM, démographie)
+- 🔗 Requêtes croisées Sport × HLM
+- 🐛 Requêtes de debug
+- ⚡ Optimisations de performance
+
 ### Exemple : Top 5 Sports par Région
 
 ```sparql
@@ -295,7 +305,8 @@ WHERE {
           :hasSport ?sport ;
           :hasPopulationGroup ?group .
     
-    ?group :locatedInDepartment / :locatedInRegion ?reg .
+    ?group :locatedInDepartment ?dep .
+    ?dep :locatedInRegion ?reg .
     ?reg rdfs:label "Île-de-France" .
     ?sport rdfs:label ?sportLabel .
 } 
@@ -310,6 +321,8 @@ LIMIT 5
 - ✅ LIMIT systématique
 - ✅ Évitement des `FILTER NOT EXISTS`
 - ✅ Requêtes parallèles côté JS
+
+**💡 Voir [SPARQL_QUERIES.md](SPARQL_QUERIES.md) pour 15+ requêtes prêtes à l'emploi**
 
 ---
 
