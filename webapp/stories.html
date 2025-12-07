@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stories - Sport & HLM</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .story-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .story-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+        }
+        
+        .story-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .story-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+        
+        .story-content {
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .story-stat {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
+        }
+        
+        .story-detail {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-style: italic;
+        }
+        
+        .full-width-card {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .full-width-card .story-title {
+            color: white;
+        }
+        
+        .full-width-card .story-content {
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin-top: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #e0e7ff;
+            color: #4f46e5;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            padding: 3rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.2s;
+        }
+        
+        .back-btn:hover {
+            background: #f8fafc;
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Retour au Dashboard</a>
+        
+        <div class="header">
+            <h1>📖 Stories du Sport en France</h1>
+            <p>Découvrez les tendances et particularités de la pratique sportive</p>
+        </div>
+        
+        <div id="loading" class="loading">
+            Chargement des données...
+        </div>
+        
+        <div id="stories" class="stories-grid" style="display: none;">
+            <!-- Les stories seront générées dynamiquement -->
+        </div>
+    </div>
+    
+    <script>
+        const ENDPOINT = "http://localhost:7200/repositories/Gon";
+        
+        async function runQuery(sparql) {
+            try {
+                console.log("🔍 Executing SPARQL query...");
+                
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 15000); // Timeout 15 secondes
+                
+                const response = await fetch(ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/sparql-query',
+                        'Accept': 'application/sparql-results+json'
+                    },
+                    body: sparql,
+                    signal: controller.signal
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) {
+                    console.error("❌ HTTP Error:", response.status);
+                    return [];
+                }
+                
+                const data = await response.json();
+                console.log("✅ Query result:", data.results.bindings.length, "rows");
+                return data.results.bindings;
+            } catch (error) {
+                console.error("❌ SPARQL Error:", error);
+                return [];
+            }
+        }
+        
+        async function loadStories() {
+            const stories = [];
+            
+            console.log("📖 Starting to load stories...");
+            
+            try {
+                // 1. Sport préféré des jeunes
+                console.log("1️⃣ Loading young sports...");
+                const youngSportsQuery = `
+                    PREFIX : <http://example.org/sport-hlm#>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    SELECT ?sportLabel (SUM(?licences) AS ?total) WHERE {
+                        ?part a :SportParticipation ;
+                              :numLicences ?licences ;
+                              :hasSport ?sport ;
+                              :hasPopulationGroup ?group .
+                        ?sport rdfs:label ?sportLabel .
+                        ?group :age ?age .
+                        FILTER(?age >= 5 && ?age <= 19)
+                    } GROUP BY ?sportLabel ORDER BY DESC(?total) LIMIT 1
+                `;
+                
+                const youngSports = await runQuery(youngSportsQuery);
+                if (youngSports.length > 0) {
+                    const sport = youngSports[0].sportLabel.value;
+                    const total = parseInt(youngSports[0].total.value);
+                    stories.push({
+                        icon: '🧒',
+                        title: 'Le sport des jeunes',
+                        tag: 'Jeunesse',
+                        stat: sport,
+                        content: `Les jeunes de 5 à 19 ans pratiquent massivement le <strong>${sport}</strong>. Cette discipline rassemble plus de ${total.toLocaleString('fr-FR')} licenciés dans cette tranche d'âge.`,
+                        detail: 'Source : données des fédérations sportives françaises'
+                    });
+                    console.log("✅ Young sports loaded:", sport);
+                }
+            } catch (e) {
+                console.error("❌ Error loading young sports:", e);
+            }
+            
+            try {
+                // 2. Sport préféré des seniors
+                console.log("2️⃣ Loading senior sports...");
+                const seniorSportsQuery = `
+                    PREFIX : <http://example.org/sport-hlm#>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    SELECT ?sportLabel (SUM(?licences) AS ?total) WHERE {
+                        ?part a :SportParticipation ;
+                              :numLicences ?licences ;
+                              :hasSport ?sport ;
+                              :hasPopulationGroup ?group .
+                        ?sport rdfs:label ?sportLabel .
+                        ?group :age ?age .
+                        FILTER(?age >= 60)
+                    } GROUP BY ?sportLabel ORDER BY DESC(?total) LIMIT 1
+                `;
+                
+                const seniorSports = await runQuery(seniorSportsQuery);
+                if (seniorSports.length > 0) {
+                    const sport = seniorSports[0].sportLabel.value;
+                    const total = parseInt(seniorSports[0].total.value);
+                    stories.push({
+                        icon: '👴',
+                        title: 'Les séniors actifs',
+                        tag: 'Séniors',
+                        stat: sport,
+                        content: `Les séniors (60 ans et +) privilégient le <strong>${sport}</strong>, avec ${total.toLocaleString('fr-FR')} pratiquants. Une discipline adaptée qui favorise le bien-être et le lien social.`,
+                        detail: 'Le sport comme vecteur de santé et de lien social'
+                    });
+                    console.log("✅ Senior sports loaded:", sport);
+                }
+            } catch (e) {
+                console.error("❌ Error loading senior sports:", e);
+            }
+            
+            try {
+                // 3. Région la plus sportive
+                console.log("3️⃣ Loading top region...");
+                const topRegionQuery = `
+                    PREFIX : <http://example.org/sport-hlm#>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    SELECT ?regionLabel (SUM(?licences) AS ?total) WHERE {
+                        ?part a :SportParticipation ;
+                              :numLicences ?licences ;
+                              :hasPopulationGroup ?group .
+                        ?group :locatedInDepartment ?dep .
+                        ?dep :locatedInRegion ?reg .
+                        ?reg rdfs:label ?regionLabel .
+                        FILTER(!REGEX(STR(?regionLabel), "^[0-9]") && STR(?regionLabel) = UCASE(STR(?regionLabel)))
+                    } GROUP BY ?regionLabel ORDER BY DESC(?total) LIMIT 1
+                `;
+                
+                const topRegion = await runQuery(topRegionQuery);
+                if (topRegion.length > 0) {
+                    const region = topRegion[0].regionLabel.value;
+                    const total = parseInt(topRegion[0].total.value);
+                    stories.push({
+                        icon: '🏆',
+                        title: 'La région championne',
+                        tag: 'Records',
+                        stat: region,
+                        content: `Avec ${total.toLocaleString('fr-FR')} licenciés sportifs, <strong>${region}</strong> domine le classement national. Une culture sportive profondément ancrée dans le territoire.`,
+                        detail: 'Toutes disciplines confondues'
+                    });
+                    console.log("✅ Top region loaded:", region);
+                }
+            } catch (e) {
+                console.error("❌ Error loading top region:", e);
+            }
+            
+            try {
+                // 4. Équilibre Hommes/Femmes
+                console.log("4️⃣ Loading gender stats...");
+                const genderQuery = `
+                    PREFIX : <http://example.org/sport-hlm#>
+                    SELECT ?sex (SUM(?licences) AS ?total) WHERE {
+                        ?part a :SportParticipation ;
+                              :numLicences ?licences ;
+                              :hasPopulationGroup ?group .
+                        ?group :sex ?sex .
+                    } GROUP BY ?sex
+                `;
+                
+                const gender = await runQuery(genderQuery);
+                if (gender.length === 2) {
+                    const women = gender.find(g => g.sex.value === 'F');
+                    const men = gender.find(g => g.sex.value === 'H' || g.sex.value === 'M');
+                    if (women && men) {
+                        const womenTotal = parseInt(women.total.value);
+                        const menTotal = parseInt(men.total.value);
+                        const womenPercent = ((womenTotal / (womenTotal + menTotal)) * 100).toFixed(1);
+                        
+                        stories.push({
+                            icon: '⚖️',
+                            title: 'Parité dans le sport',
+                            tag: 'Égalité',
+                            stat: `${womenPercent}%`,
+                            content: `Les femmes représentent ${womenPercent}% des licenciés sportifs en France. La progression est constante, mais des efforts restent à faire pour atteindre la parité complète.`,
+                            detail: `${womenTotal.toLocaleString('fr-FR')} femmes vs ${menTotal.toLocaleString('fr-FR')} hommes`
+                        });
+                        console.log("✅ Gender stats loaded");
+                    }
+                }
+            } catch (e) {
+                console.error("❌ Error loading gender stats:", e);
+            }
+            
+            try {
+                // 5. DOM-TOM
+                console.log("5️⃣ Loading DOM-TOM stats...");
+                const domtomQuery = `
+                    PREFIX : <http://example.org/sport-hlm#>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    SELECT ?regionLabel (SUM(?licences) AS ?total) WHERE {
+                        ?part a :SportParticipation ;
+                              :numLicences ?licences ;
+                              :hasPopulationGroup ?group .
+                        ?group :locatedInDepartment ?dep .
+                        ?dep :locatedInRegion ?reg .
+                        ?reg rdfs:label ?regionLabel .
+                        FILTER(?regionLabel IN ("GUADELOUPE"@fr, "MARTINIQUE"@fr, "GUYANE"@fr, "LA RÉUNION"@fr, "MAYOTTE"@fr))
+                    } GROUP BY ?regionLabel ORDER BY DESC(?total) LIMIT 1
+                `;
+                
+                const domtom = await runQuery(domtomQuery);
+                if (domtom.length > 0) {
+                    const topDom = domtom[0].regionLabel.value;
+                    const total = parseInt(domtom[0].total.value);
+                    stories.push({
+                        icon: '🌴',
+                        title: 'Sport en Outre-Mer',
+                        tag: 'DOM-TOM',
+                        stat: topDom,
+                        content: `Les territoires d'Outre-Mer ont des profils sportifs uniques. <strong>${topDom}</strong> compte ${total.toLocaleString('fr-FR')} licenciés avec des disciplines spécifiques adaptées au climat tropical.`,
+                        detail: 'Sports nautiques et disciplines locales en vedette'
+                    });
+                    console.log("✅ DOM-TOM stats loaded");
+                }
+            } catch (e) {
+                console.error("❌ Error loading DOM-TOM stats:", e);
+            }
+            
+            try {
+                // 6. Sport et HLM
+                console.log("6️⃣ Loading HLM stats...");
+                const hlmQuery = `
+                    PREFIX : <http://example.org/sport-hlm#>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    SELECT (AVG(?taux) AS ?avgHLM) WHERE {
+                        ?depHlm :hasHousingData ?hd .
+                        ?hd :proportionHLM ?taux .
+                    }
+                `;
+                
+                const hlm = await runQuery(hlmQuery);
+                if (hlm.length > 0 && hlm[0].avgHLM) {
+                    const avgHLM = parseFloat(hlm[0].avgHLM.value).toFixed(1);
+                    stories.push({
+                        icon: '🏘️',
+                        title: 'Sport en logement social',
+                        tag: 'Société',
+                        stat: `${avgHLM}%`,
+                        content: `En moyenne, ${avgHLM}% des habitants vivent en HLM dans les zones étudiées. Le sport joue un rôle crucial d'intégration et de cohésion sociale dans ces quartiers.`,
+                        detail: 'Le sport, vecteur de mixité sociale'
+                    });
+                    console.log("✅ HLM stats loaded");
+                }
+            } catch (e) {
+                console.error("❌ Error loading HLM stats:", e);
+            }
+            
+            console.log("📖 Stories loading complete. Total:", stories.length);
+            return stories;
+        }
+        
+        async function displayStories() {
+            const stories = await loadStories();
+            const container = document.getElementById('stories');
+            const loading = document.getElementById('loading');
+            
+            if (stories.length === 0) {
+                loading.textContent = "Aucune donnée disponible. Vérifiez que GraphDB est accessible.";
+                return;
+            }
+            
+            stories.forEach((story, index) => {
+                const card = document.createElement('div');
+                card.className = 'story-card';
+                if (index === stories.length - 1 && stories.length % 2 === 1) {
+                    // Dernière carte en pleine largeur si impair
+                    card.classList.add('full-width-card');
+                }
+                
+                card.innerHTML = `
+                    <div class="story-icon">${story.icon}</div>
+                    <div class="tag">${story.tag}</div>
+                    <h2 class="story-title">${story.title}</h2>
+                    <div class="story-stat">${story.stat}</div>
+                    <p class="story-content">${story.content}</p>
+                    <p class="story-detail">${story.detail}</p>
+                `;
+                
+                container.appendChild(card);
+            });
+            
+            loading.style.display = 'none';
+            container.style.display = 'grid';
+        }
+        
+        // Charger au démarrage
+        document.addEventListener('DOMContentLoaded', displayStories);
+    </script>
+</body>
+</html>

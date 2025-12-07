@@ -1,0 +1,1404 @@
+@prefix : <http://example.org/sport-hlm#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+:Region_1 a :Region ;
+    rdfs:label "GUADELOUPE"@fr .
+
+:Department_971 a :Department ;
+    rdfs:label "971 - Guadeloupe"@fr ;
+    :locatedInRegion :Region_1 ;
+    :inseeCode "971" .
+
+:HousingData_971_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "21.53016027"^^xsd:decimal .
+
+:Department_971 :hasHousingData :HousingData_971_2021 .
+
+:Region_24 a :Region ;
+    rdfs:label "CENTRE-VAL DE LOIRE"@fr .
+
+:Department_37 a :Department ;
+    rdfs:label "37 - Indre-et-Loire"@fr ;
+    :locatedInRegion :Region_24 ;
+    :inseeCode "37" .
+
+:HousingData_37_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "17.98995741"^^xsd:decimal .
+
+:Department_37 :hasHousingData :HousingData_37_2021 .
+
+:Region_4 a :Region ;
+    rdfs:label "LA RÉUNION"@fr .
+
+:Department_974 a :Department ;
+    rdfs:label "974 - La Réunion"@fr ;
+    :locatedInRegion :Region_4 ;
+    :inseeCode "974" .
+
+:HousingData_974_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "23.22986834"^^xsd:decimal .
+
+:Department_974 :hasHousingData :HousingData_974_2021 .
+
+:Region_93 a :Region ;
+    rdfs:label "PROVENCE-ALPES-CÔTE D'AZUR"@fr .
+
+:Department_83 a :Department ;
+    rdfs:label "83 - Var"@fr ;
+    :locatedInRegion :Region_93 ;
+    :inseeCode "83" .
+
+:HousingData_83_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "10.52190098"^^xsd:decimal .
+
+:Department_83 :hasHousingData :HousingData_83_2021 .
+
+:Region_28 a :Region ;
+    rdfs:label "NORMANDIE"@fr .
+
+:Department_61 a :Department ;
+    rdfs:label "61 - Orne"@fr ;
+    :locatedInRegion :Region_28 ;
+    :inseeCode "61" .
+
+:HousingData_61_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "16.26568493"^^xsd:decimal .
+
+:Department_61 :hasHousingData :HousingData_61_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_07 a :Department ;
+    rdfs:label "07 - Ardèche"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "07" .
+
+:HousingData_07_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "9.220931224"^^xsd:decimal .
+
+:Department_07 :hasHousingData :HousingData_07_2021 .
+
+:Region_11 a :Region ;
+    rdfs:label "ÎLE-DE-FRANCE"@fr .
+
+:Department_77 a :Department ;
+    rdfs:label "77 - Seine-et-Marne"@fr ;
+    :locatedInRegion :Region_11 ;
+    :inseeCode "77" .
+
+:HousingData_77_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "19.17480712"^^xsd:decimal .
+
+:Department_77 :hasHousingData :HousingData_77_2021 .
+
+:Region_44 a :Region ;
+    rdfs:label "GRAND EST"@fr .
+
+:Department_10 a :Department ;
+    rdfs:label "10 - Aube"@fr ;
+    :locatedInRegion :Region_44 ;
+    :inseeCode "10" .
+
+:HousingData_10_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "22.67918048"^^xsd:decimal .
+
+:Department_10 :hasHousingData :HousingData_10_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_24 a :Department ;
+    rdfs:label "24 - Dordogne"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "24" .
+
+:HousingData_24_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "7.277342005"^^xsd:decimal .
+
+:Department_24 :hasHousingData :HousingData_24_2021 .
+
+:Region_27 a :Region ;
+    rdfs:label "BOURGOGNE-FRANCHE-COMTÉ"@fr .
+
+:Department_89 a :Department ;
+    rdfs:label "89 - Yonne"@fr ;
+    :locatedInRegion :Region_27 ;
+    :inseeCode "89" .
+
+:HousingData_89_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "13.58227599"^^xsd:decimal .
+
+:Department_89 :hasHousingData :HousingData_89_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_31 a :Department ;
+    rdfs:label "31 - Haute-Garonne"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "31" .
+
+:HousingData_31_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "14.24492415"^^xsd:decimal .
+
+:Department_31 :hasHousingData :HousingData_31_2021 .
+
+:Region_93 a :Region ;
+    rdfs:label "PROVENCE-ALPES-CÔTE D'AZUR"@fr .
+
+:Department_05 a :Department ;
+    rdfs:label "05 - Hautes-Alpes"@fr ;
+    :locatedInRegion :Region_93 ;
+    :inseeCode "05" .
+
+:HousingData_05_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "12.00091136"^^xsd:decimal .
+
+:Department_05 :hasHousingData :HousingData_05_2021 .
+
+:Region_93 a :Region ;
+    rdfs:label "PROVENCE-ALPES-CÔTE D'AZUR"@fr .
+
+:Department_04 a :Department ;
+    rdfs:label "04 - Alpes-de-Haute-Provence"@fr ;
+    :locatedInRegion :Region_93 ;
+    :inseeCode "04" .
+
+:HousingData_04_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "9.66068865"^^xsd:decimal .
+
+:Department_04 :hasHousingData :HousingData_04_2021 .
+
+:Region_2 a :Region ;
+    rdfs:label "MARTINIQUE"@fr .
+
+:Department_972 a :Department ;
+    rdfs:label "972 - Martinique"@fr ;
+    :locatedInRegion :Region_2 ;
+    :inseeCode "972" .
+
+:HousingData_972_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "20.31135561"^^xsd:decimal .
+
+:Department_972 :hasHousingData :HousingData_972_2021 .
+
+:Region_27 a :Region ;
+    rdfs:label "BOURGOGNE-FRANCHE-COMTÉ"@fr .
+
+:Department_21 a :Department ;
+    rdfs:label "21 - Côte-d'Or"@fr ;
+    :locatedInRegion :Region_27 ;
+    :inseeCode "21" .
+
+:HousingData_21_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "14.80710445"^^xsd:decimal .
+
+:Department_21 :hasHousingData :HousingData_21_2021 .
+
+:Region_28 a :Region ;
+    rdfs:label "NORMANDIE"@fr .
+
+:Department_76 a :Department ;
+    rdfs:label "76 - Seine-Maritime"@fr ;
+    :locatedInRegion :Region_28 ;
+    :inseeCode "76" .
+
+:HousingData_76_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "25.9709166"^^xsd:decimal .
+
+:Department_76 :hasHousingData :HousingData_76_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_19 a :Department ;
+    rdfs:label "19 - Corrèze"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "19" .
+
+:HousingData_19_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "8.608516929"^^xsd:decimal .
+
+:Department_19 :hasHousingData :HousingData_19_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_32 a :Department ;
+    rdfs:label "32 - Gers"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "32" .
+
+:HousingData_32_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "6.491954277"^^xsd:decimal .
+
+:Department_32 :hasHousingData :HousingData_32_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_81 a :Department ;
+    rdfs:label "81 - Tarn"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "81" .
+
+:HousingData_81_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "8.665243405"^^xsd:decimal .
+
+:Department_81 :hasHousingData :HousingData_81_2021 .
+
+:Region_53 a :Region ;
+    rdfs:label "BRETAGNE"@fr .
+
+:Department_35 a :Department ;
+    rdfs:label "35 - Ille-et-Vilaine"@fr ;
+    :locatedInRegion :Region_53 ;
+    :inseeCode "35" .
+
+:HousingData_35_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "15.39698827"^^xsd:decimal .
+
+:Department_35 :hasHousingData :HousingData_35_2021 .
+
+:Region_27 a :Region ;
+    rdfs:label "BOURGOGNE-FRANCHE-COMTÉ"@fr .
+
+:Department_70 a :Department ;
+    rdfs:label "70 - Haute-Saône"@fr ;
+    :locatedInRegion :Region_27 ;
+    :inseeCode "70" .
+
+:HousingData_70_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "10.57335365"^^xsd:decimal .
+
+:Department_70 :hasHousingData :HousingData_70_2021 .
+
+:Region_52 a :Region ;
+    rdfs:label "PAYS DE LA LOIRE"@fr .
+
+:Department_49 a :Department ;
+    rdfs:label "49 - Maine-et-Loire"@fr ;
+    :locatedInRegion :Region_52 ;
+    :inseeCode "49" .
+
+:HousingData_49_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "18.53851655"^^xsd:decimal .
+
+:Department_49 :hasHousingData :HousingData_49_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_11 a :Department ;
+    rdfs:label "11 - Aude"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "11" .
+
+:HousingData_11_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "10.25966087"^^xsd:decimal .
+
+:Department_11 :hasHousingData :HousingData_11_2021 .
+
+:Region_27 a :Region ;
+    rdfs:label "BOURGOGNE-FRANCHE-COMTÉ"@fr .
+
+:Department_71 a :Department ;
+    rdfs:label "71 - Saône-et-Loire"@fr ;
+    :locatedInRegion :Region_27 ;
+    :inseeCode "71" .
+
+:HousingData_71_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "16.6549607"^^xsd:decimal .
+
+:Department_71 :hasHousingData :HousingData_71_2021 .
+
+:Region_11 a :Region ;
+    rdfs:label "ÎLE-DE-FRANCE"@fr .
+
+:Department_78 a :Department ;
+    rdfs:label "78 - Yvelines"@fr ;
+    :locatedInRegion :Region_11 ;
+    :inseeCode "78" .
+
+:HousingData_78_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "21.66630916"^^xsd:decimal .
+
+:Department_78 :hasHousingData :HousingData_78_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_65 a :Department ;
+    rdfs:label "65 - Hautes-Pyrénées"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "65" .
+
+:HousingData_65_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "11.55422928"^^xsd:decimal .
+
+:Department_65 :hasHousingData :HousingData_65_2021 .
+
+:Region_24 a :Region ;
+    rdfs:label "CENTRE-VAL DE LOIRE"@fr .
+
+:Department_36 a :Department ;
+    rdfs:label "36 - Indre"@fr ;
+    :locatedInRegion :Region_24 ;
+    :inseeCode "36" .
+
+:HousingData_36_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "16.58857541"^^xsd:decimal .
+
+:Department_36 :hasHousingData :HousingData_36_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_42 a :Department ;
+    rdfs:label "42 - Loire"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "42" .
+
+:HousingData_42_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "17.56860806"^^xsd:decimal .
+
+:Department_42 :hasHousingData :HousingData_42_2021 .
+
+:Region_24 a :Region ;
+    rdfs:label "CENTRE-VAL DE LOIRE"@fr .
+
+:Department_28 a :Department ;
+    rdfs:label "28 - Eure-et-Loir"@fr ;
+    :locatedInRegion :Region_24 ;
+    :inseeCode "28" .
+
+:HousingData_28_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "17.46108927"^^xsd:decimal .
+
+:Department_28 :hasHousingData :HousingData_28_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_33 a :Department ;
+    rdfs:label "33 - Gironde"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "33" .
+
+:HousingData_33_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "14.40537145"^^xsd:decimal .
+
+:Department_33 :hasHousingData :HousingData_33_2021 .
+
+:Region_3 a :Region ;
+    rdfs:label "GUYANE"@fr .
+
+:Department_973 a :Department ;
+    rdfs:label "973 - Guyane"@fr ;
+    :locatedInRegion :Region_3 ;
+    :inseeCode "973" .
+
+:HousingData_973_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "23.63217039"^^xsd:decimal .
+
+:Department_973 :hasHousingData :HousingData_973_2021 .
+
+:Region_44 a :Region ;
+    rdfs:label "GRAND EST"@fr .
+
+:Department_55 a :Department ;
+    rdfs:label "55 - Meuse"@fr ;
+    :locatedInRegion :Region_44 ;
+    :inseeCode "55" .
+
+:HousingData_55_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "12.17829156"^^xsd:decimal .
+
+:Department_55 :hasHousingData :HousingData_55_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_40 a :Department ;
+    rdfs:label "40 - Landes"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "40" .
+
+:HousingData_40_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "7.212653547"^^xsd:decimal .
+
+:Department_40 :hasHousingData :HousingData_40_2021 .
+
+:Region_44 a :Region ;
+    rdfs:label "GRAND EST"@fr .
+
+:Department_52 a :Department ;
+    rdfs:label "52 - Haute-Marne"@fr ;
+    :locatedInRegion :Region_44 ;
+    :inseeCode "52" .
+
+:HousingData_52_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "19.61250311"^^xsd:decimal .
+
+:Department_52 :hasHousingData :HousingData_52_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_64 a :Department ;
+    rdfs:label "64 - Pyrénées-Atlantiques"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "64" .
+
+:HousingData_64_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "11.47280357"^^xsd:decimal .
+
+:Department_64 :hasHousingData :HousingData_64_2021 .
+
+:Region_24 a :Region ;
+    rdfs:label "CENTRE-VAL DE LOIRE"@fr .
+
+:Department_18 a :Department ;
+    rdfs:label "18 - Cher"@fr ;
+    :locatedInRegion :Region_24 ;
+    :inseeCode "18" .
+
+:HousingData_18_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "14.696875"^^xsd:decimal .
+
+:Department_18 :hasHousingData :HousingData_18_2021 .
+
+:Region_11 a :Region ;
+    rdfs:label "ÎLE-DE-FRANCE"@fr .
+
+:Department_75 a :Department ;
+    rdfs:label "75 - Paris"@fr ;
+    :locatedInRegion :Region_11 ;
+    :inseeCode "75" .
+
+:HousingData_75_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "20.42468269"^^xsd:decimal .
+
+:Department_75 :hasHousingData :HousingData_75_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_34 a :Department ;
+    rdfs:label "34 - Hérault"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "34" .
+
+:HousingData_34_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "12.05375824"^^xsd:decimal .
+
+:Department_34 :hasHousingData :HousingData_34_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_73 a :Department ;
+    rdfs:label "73 - Savoie"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "73" .
+
+:HousingData_73_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "17.54783813"^^xsd:decimal .
+
+:Department_73 :hasHousingData :HousingData_73_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_03 a :Department ;
+    rdfs:label "03 - Allier"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "03" .
+
+:HousingData_03_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "12.53946948"^^xsd:decimal .
+
+:Department_03 :hasHousingData :HousingData_03_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_86 a :Department ;
+    rdfs:label "86 - Vienne"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "86" .
+
+:HousingData_86_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "12.51905783"^^xsd:decimal .
+
+:Department_86 :hasHousingData :HousingData_86_2021 .
+
+:Region_24 a :Region ;
+    rdfs:label "CENTRE-VAL DE LOIRE"@fr .
+
+:Department_41 a :Department ;
+    rdfs:label "41 - Loir-et-Cher"@fr ;
+    :locatedInRegion :Region_24 ;
+    :inseeCode "41" .
+
+:HousingData_41_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "14.33389834"^^xsd:decimal .
+
+:Department_41 :hasHousingData :HousingData_41_2021 .
+
+:Region_11 a :Region ;
+    rdfs:label "ÎLE-DE-FRANCE"@fr .
+
+:Department_94 a :Department ;
+    rdfs:label "94 - Val-de-Marne"@fr ;
+    :locatedInRegion :Region_11 ;
+    :inseeCode "94" .
+
+:HousingData_94_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "30.04502192"^^xsd:decimal .
+
+:Department_94 :hasHousingData :HousingData_94_2021 .
+
+:Region_28 a :Region ;
+    rdfs:label "NORMANDIE"@fr .
+
+:Department_27 a :Department ;
+    rdfs:label "27 - Eure"@fr ;
+    :locatedInRegion :Region_28 ;
+    :inseeCode "27" .
+
+:HousingData_27_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "16.71507012"^^xsd:decimal .
+
+:Department_27 :hasHousingData :HousingData_27_2021 .
+
+:Region_11 a :Region ;
+    rdfs:label "ÎLE-DE-FRANCE"@fr .
+
+:Department_95 a :Department ;
+    rdfs:label "95 - Val-d'Oise"@fr ;
+    :locatedInRegion :Region_11 ;
+    :inseeCode "95" .
+
+:HousingData_95_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "26.56975654"^^xsd:decimal .
+
+:Department_95 :hasHousingData :HousingData_95_2021 .
+
+:Region_44 a :Region ;
+    rdfs:label "GRAND EST"@fr .
+
+:Department_08 a :Department ;
+    rdfs:label "08 - Ardennes"@fr ;
+    :locatedInRegion :Region_44 ;
+    :inseeCode "08" .
+
+:HousingData_08_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "19.94017069"^^xsd:decimal .
+
+:Department_08 :hasHousingData :HousingData_08_2021 .
+
+:Region_32 a :Region ;
+    rdfs:label "HAUTS-DE-FRANCE"@fr .
+
+:Department_62 a :Department ;
+    rdfs:label "62 - Pas-de-Calais"@fr ;
+    :locatedInRegion :Region_32 ;
+    :inseeCode "62" .
+
+:HousingData_62_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "26.12902951"^^xsd:decimal .
+
+:Department_62 :hasHousingData :HousingData_62_2021 .
+
+:Region_11 a :Region ;
+    rdfs:label "ÎLE-DE-FRANCE"@fr .
+
+:Department_91 a :Department ;
+    rdfs:label "91 - Essonne"@fr ;
+    :locatedInRegion :Region_11 ;
+    :inseeCode "91" .
+
+:HousingData_91_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "24.06123665"^^xsd:decimal .
+
+:Department_91 :hasHousingData :HousingData_91_2021 .
+
+:Region_93 a :Region ;
+    rdfs:label "PROVENCE-ALPES-CÔTE D'AZUR"@fr .
+
+:Department_84 a :Department ;
+    rdfs:label "84 - Vaucluse"@fr ;
+    :locatedInRegion :Region_93 ;
+    :inseeCode "84" .
+
+:HousingData_84_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "14.17459003"^^xsd:decimal .
+
+:Department_84 :hasHousingData :HousingData_84_2021 .
+
+:Region_53 a :Region ;
+    rdfs:label "BRETAGNE"@fr .
+
+:Department_56 a :Department ;
+    rdfs:label "56 - Morbihan"@fr ;
+    :locatedInRegion :Region_53 ;
+    :inseeCode "56" .
+
+:HousingData_56_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "10.73202307"^^xsd:decimal .
+
+:Department_56 :hasHousingData :HousingData_56_2021 .
+
+:Region_44 a :Region ;
+    rdfs:label "GRAND EST"@fr .
+
+:Department_51 a :Department ;
+    rdfs:label "51 - Marne"@fr ;
+    :locatedInRegion :Region_44 ;
+    :inseeCode "51" .
+
+:HousingData_51_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "28.33920774"^^xsd:decimal .
+
+:Department_51 :hasHousingData :HousingData_51_2021 .
+
+:Region_28 a :Region ;
+    rdfs:label "NORMANDIE"@fr .
+
+:Department_14 a :Department ;
+    rdfs:label "14 - Calvados"@fr ;
+    :locatedInRegion :Region_28 ;
+    :inseeCode "14" .
+
+:HousingData_14_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "18.82335425"^^xsd:decimal .
+
+:Department_14 :hasHousingData :HousingData_14_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_47 a :Department ;
+    rdfs:label "47 - Lot-et-Garonne"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "47" .
+
+:HousingData_47_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "7.352312427"^^xsd:decimal .
+
+:Department_47 :hasHousingData :HousingData_47_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_26 a :Department ;
+    rdfs:label "26 - Drôme"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "26" .
+
+:HousingData_26_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "12.52170787"^^xsd:decimal .
+
+:Department_26 :hasHousingData :HousingData_26_2021 .
+
+:Region_52 a :Region ;
+    rdfs:label "PAYS DE LA LOIRE"@fr .
+
+:Department_85 a :Department ;
+    rdfs:label "85 - Vendée"@fr ;
+    :locatedInRegion :Region_52 ;
+    :inseeCode "85" .
+
+:HousingData_85_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "7.948500968"^^xsd:decimal .
+
+:Department_85 :hasHousingData :HousingData_85_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_79 a :Department ;
+    rdfs:label "79 - Deux-Sèvres"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "79" .
+
+:HousingData_79_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "9.326515479"^^xsd:decimal .
+
+:Department_79 :hasHousingData :HousingData_79_2021 .
+
+:Region_11 a :Region ;
+    rdfs:label "ÎLE-DE-FRANCE"@fr .
+
+:Department_93 a :Department ;
+    rdfs:label "93 - Seine-Saint-Denis"@fr ;
+    :locatedInRegion :Region_11 ;
+    :inseeCode "93" .
+
+:HousingData_93_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "36.55172264"^^xsd:decimal .
+
+:Department_93 :hasHousingData :HousingData_93_2021 .
+
+:Region_24 a :Region ;
+    rdfs:label "CENTRE-VAL DE LOIRE"@fr .
+
+:Department_45 a :Department ;
+    rdfs:label "45 - Loiret"@fr ;
+    :locatedInRegion :Region_24 ;
+    :inseeCode "45" .
+
+:HousingData_45_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "17.13193527"^^xsd:decimal .
+
+:Department_45 :hasHousingData :HousingData_45_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_38 a :Department ;
+    rdfs:label "38 - Isère"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "38" .
+
+:HousingData_38_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "16.4417855"^^xsd:decimal .
+
+:Department_38 :hasHousingData :HousingData_38_2021 .
+
+:Region_44 a :Region ;
+    rdfs:label "GRAND EST"@fr .
+
+:Department_57 a :Department ;
+    rdfs:label "57 - Moselle"@fr ;
+    :locatedInRegion :Region_44 ;
+    :inseeCode "57" .
+
+:HousingData_57_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "17.03250489"^^xsd:decimal .
+
+:Department_57 :hasHousingData :HousingData_57_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_17 a :Department ;
+    rdfs:label "17 - Charente-Maritime"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "17" .
+
+:HousingData_17_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "9.560634655"^^xsd:decimal .
+
+:Department_17 :hasHousingData :HousingData_17_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_87 a :Department ;
+    rdfs:label "87 - Haute-Vienne"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "87" .
+
+:HousingData_87_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "14.37094725"^^xsd:decimal .
+
+:Department_87 :hasHousingData :HousingData_87_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_48 a :Department ;
+    rdfs:label "48 - Lozère"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "48" .
+
+:HousingData_48_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "8.220829836"^^xsd:decimal .
+
+:Department_48 :hasHousingData :HousingData_48_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_74 a :Department ;
+    rdfs:label "74 - Haute-Savoie"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "74" .
+
+:HousingData_74_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "13.60733904"^^xsd:decimal .
+
+:Department_74 :hasHousingData :HousingData_74_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_15 a :Department ;
+    rdfs:label "15 - Cantal"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "15" .
+
+:HousingData_15_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "8.999956001"^^xsd:decimal .
+
+:Department_15 :hasHousingData :HousingData_15_2021 .
+
+:Region_32 a :Region ;
+    rdfs:label "HAUTS-DE-FRANCE"@fr .
+
+:Department_60 a :Department ;
+    rdfs:label "60 - Oise"@fr ;
+    :locatedInRegion :Region_32 ;
+    :inseeCode "60" .
+
+:HousingData_60_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "19.83233953"^^xsd:decimal .
+
+:Department_60 :hasHousingData :HousingData_60_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_63 a :Department ;
+    rdfs:label "63 - Puy-de-Dôme"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "63" .
+
+:HousingData_63_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "13.90343077"^^xsd:decimal .
+
+:Department_63 :hasHousingData :HousingData_63_2021 .
+
+:Region_27 a :Region ;
+    rdfs:label "BOURGOGNE-FRANCHE-COMTÉ"@fr .
+
+:Department_58 a :Department ;
+    rdfs:label "58 - Nièvre"@fr ;
+    :locatedInRegion :Region_27 ;
+    :inseeCode "58" .
+
+:HousingData_58_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "13.43812123"^^xsd:decimal .
+
+:Department_58 :hasHousingData :HousingData_58_2021 .
+
+:Region_32 a :Region ;
+    rdfs:label "HAUTS-DE-FRANCE"@fr .
+
+:Department_02 a :Department ;
+    rdfs:label "02 - Aisne"@fr ;
+    :locatedInRegion :Region_32 ;
+    :inseeCode "02" .
+
+:HousingData_02_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "17.57454758"^^xsd:decimal .
+
+:Department_02 :hasHousingData :HousingData_02_2021 .
+
+:Region_52 a :Region ;
+    rdfs:label "PAYS DE LA LOIRE"@fr .
+
+:Department_72 a :Department ;
+    rdfs:label "72 - Sarthe"@fr ;
+    :locatedInRegion :Region_52 ;
+    :inseeCode "72" .
+
+:HousingData_72_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "15.57162801"^^xsd:decimal .
+
+:Department_72 :hasHousingData :HousingData_72_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_82 a :Department ;
+    rdfs:label "82 - Tarn-et-Garonne"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "82" .
+
+:HousingData_82_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "7.763833999"^^xsd:decimal .
+
+:Department_82 :hasHousingData :HousingData_82_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_46 a :Department ;
+    rdfs:label "46 - Lot"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "46" .
+
+:HousingData_46_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "6.253826625"^^xsd:decimal .
+
+:Department_46 :hasHousingData :HousingData_46_2021 .
+
+:Region_53 a :Region ;
+    rdfs:label "BRETAGNE"@fr .
+
+:Department_22 a :Department ;
+    rdfs:label "22 - Côtes-d'Armor"@fr ;
+    :locatedInRegion :Region_53 ;
+    :inseeCode "22" .
+
+:HousingData_22_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "8.327387155"^^xsd:decimal .
+
+:Department_22 :hasHousingData :HousingData_22_2021 .
+
+:Region_32 a :Region ;
+    rdfs:label "HAUTS-DE-FRANCE"@fr .
+
+:Department_59 a :Department ;
+    rdfs:label "59 - Nord"@fr ;
+    :locatedInRegion :Region_32 ;
+    :inseeCode "59" .
+
+:HousingData_59_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "24.45084854"^^xsd:decimal .
+
+:Department_59 :hasHousingData :HousingData_59_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_30 a :Department ;
+    rdfs:label "30 - Gard"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "30" .
+
+:HousingData_30_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "12.41196841"^^xsd:decimal .
+
+:Department_30 :hasHousingData :HousingData_30_2021 .
+
+:Region_32 a :Region ;
+    rdfs:label "HAUTS-DE-FRANCE"@fr .
+
+:Department_80 a :Department ;
+    rdfs:label "80 - Somme"@fr ;
+    :locatedInRegion :Region_32 ;
+    :inseeCode "80" .
+
+:HousingData_80_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "16.65805884"^^xsd:decimal .
+
+:Department_80 :hasHousingData :HousingData_80_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_12 a :Department ;
+    rdfs:label "12 - Aveyron"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "12" .
+
+:HousingData_12_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "6.600812301"^^xsd:decimal .
+
+:Department_12 :hasHousingData :HousingData_12_2021 .
+
+:Region_44 a :Region ;
+    rdfs:label "GRAND EST"@fr .
+
+:Department_68 a :Department ;
+    rdfs:label "68 - Haut-Rhin"@fr ;
+    :locatedInRegion :Region_44 ;
+    :inseeCode "68" .
+
+:HousingData_68_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "15.039204"^^xsd:decimal .
+
+:Department_68 :hasHousingData :HousingData_68_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_66 a :Department ;
+    rdfs:label "66 - Pyrénées-Orientales"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "66" .
+
+:HousingData_66_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "11.07309015"^^xsd:decimal .
+
+:Department_66 :hasHousingData :HousingData_66_2021 .
+
+:Region_94 a :Region ;
+    rdfs:label "CORSE"@fr .
+
+:Department_2A a :Department ;
+    rdfs:label "2A - Corse-du-Sud"@fr ;
+    :locatedInRegion :Region_94 ;
+    :inseeCode "2A" .
+
+:HousingData_2A_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "9.019029412"^^xsd:decimal .
+
+:Department_2A :hasHousingData :HousingData_2A_2021 .
+
+:Region_27 a :Region ;
+    rdfs:label "BOURGOGNE-FRANCHE-COMTÉ"@fr .
+
+:Department_90 a :Department ;
+    rdfs:label "90 - Territoire de Belfort"@fr ;
+    :locatedInRegion :Region_27 ;
+    :inseeCode "90" .
+
+:HousingData_90_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "22.03880082"^^xsd:decimal .
+
+:Department_90 :hasHousingData :HousingData_90_2021 .
+
+:Region_27 a :Region ;
+    rdfs:label "BOURGOGNE-FRANCHE-COMTÉ"@fr .
+
+:Department_25 a :Department ;
+    rdfs:label "25 - Doubs"@fr ;
+    :locatedInRegion :Region_27 ;
+    :inseeCode "25" .
+
+:HousingData_25_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "15.33140346"^^xsd:decimal .
+
+:Department_25 :hasHousingData :HousingData_25_2021 .
+
+:Region_93 a :Region ;
+    rdfs:label "PROVENCE-ALPES-CÔTE D'AZUR"@fr .
+
+:Department_13 a :Department ;
+    rdfs:label "13 - Bouches-du-Rhône"@fr ;
+    :locatedInRegion :Region_93 ;
+    :inseeCode "13" .
+
+:HousingData_13_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "17.66029013"^^xsd:decimal .
+
+:Department_13 :hasHousingData :HousingData_13_2021 .
+
+:Region_52 a :Region ;
+    rdfs:label "PAYS DE LA LOIRE"@fr .
+
+:Department_44 a :Department ;
+    rdfs:label "44 - Loire-Atlantique"@fr ;
+    :locatedInRegion :Region_52 ;
+    :inseeCode "44" .
+
+:HousingData_44_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "14.42412436"^^xsd:decimal .
+
+:Department_44 :hasHousingData :HousingData_44_2021 .
+
+:Region_76 a :Region ;
+    rdfs:label "OCCITANIE"@fr .
+
+:Department_09 a :Department ;
+    rdfs:label "09 - Ariège"@fr ;
+    :locatedInRegion :Region_76 ;
+    :inseeCode "09" .
+
+:HousingData_09_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "4.998280385"^^xsd:decimal .
+
+:Department_09 :hasHousingData :HousingData_09_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_43 a :Department ;
+    rdfs:label "43 - Haute-Loire"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "43" .
+
+:HousingData_43_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "8.046192773"^^xsd:decimal .
+
+:Department_43 :hasHousingData :HousingData_43_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_69 a :Department ;
+    rdfs:label "69 - Rhône"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "69" .
+
+:HousingData_69_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "21.17773255"^^xsd:decimal .
+
+:Department_69 :hasHousingData :HousingData_69_2021 .
+
+:Region_28 a :Region ;
+    rdfs:label "NORMANDIE"@fr .
+
+:Department_50 a :Department ;
+    rdfs:label "50 - Manche"@fr ;
+    :locatedInRegion :Region_28 ;
+    :inseeCode "50" .
+
+:HousingData_50_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "16.51812764"^^xsd:decimal .
+
+:Department_50 :hasHousingData :HousingData_50_2021 .
+
+:Region_44 a :Region ;
+    rdfs:label "GRAND EST"@fr .
+
+:Department_88 a :Department ;
+    rdfs:label "88 - Vosges"@fr ;
+    :locatedInRegion :Region_44 ;
+    :inseeCode "88" .
+
+:HousingData_88_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "14.34885528"^^xsd:decimal .
+
+:Department_88 :hasHousingData :HousingData_88_2021 .
+
+:Region_44 a :Region ;
+    rdfs:label "GRAND EST"@fr .
+
+:Department_67 a :Department ;
+    rdfs:label "67 - Bas-Rhin"@fr ;
+    :locatedInRegion :Region_44 ;
+    :inseeCode "67" .
+
+:HousingData_67_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "13.73819896"^^xsd:decimal .
+
+:Department_67 :hasHousingData :HousingData_67_2021 .
+
+:Region_53 a :Region ;
+    rdfs:label "BRETAGNE"@fr .
+
+:Department_29 a :Department ;
+    rdfs:label "29 - Finistère"@fr ;
+    :locatedInRegion :Region_53 ;
+    :inseeCode "29" .
+
+:HousingData_29_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "11.14516072"^^xsd:decimal .
+
+:Department_29 :hasHousingData :HousingData_29_2021 .
+
+:Region_94 a :Region ;
+    rdfs:label "CORSE"@fr .
+
+:Department_2B a :Department ;
+    rdfs:label "2B - Haute-Corse"@fr ;
+    :locatedInRegion :Region_94 ;
+    :inseeCode "2B" .
+
+:HousingData_2B_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "10.70406931"^^xsd:decimal .
+
+:Department_2B :hasHousingData :HousingData_2B_2021 .
+
+:Region_11 a :Region ;
+    rdfs:label "ÎLE-DE-FRANCE"@fr .
+
+:Department_92 a :Department ;
+    rdfs:label "92 - Hauts-de-Seine"@fr ;
+    :locatedInRegion :Region_11 ;
+    :inseeCode "92" .
+
+:HousingData_92_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "28.11196415"^^xsd:decimal .
+
+:Department_92 :hasHousingData :HousingData_92_2021 .
+
+:Region_93 a :Region ;
+    rdfs:label "PROVENCE-ALPES-CÔTE D'AZUR"@fr .
+
+:Department_06 a :Department ;
+    rdfs:label "06 - Alpes-Maritimes"@fr ;
+    :locatedInRegion :Region_93 ;
+    :inseeCode "06" .
+
+:HousingData_06_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "11.16507061"^^xsd:decimal .
+
+:Department_06 :hasHousingData :HousingData_06_2021 .
+
+:Region_84 a :Region ;
+    rdfs:label "AUVERGNE-RHÔNE-ALPES"@fr .
+
+:Department_01 a :Department ;
+    rdfs:label "01 - Ain"@fr ;
+    :locatedInRegion :Region_84 ;
+    :inseeCode "01" .
+
+:HousingData_01_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "16.99179575"^^xsd:decimal .
+
+:Department_01 :hasHousingData :HousingData_01_2021 .
+
+:Region_27 a :Region ;
+    rdfs:label "BOURGOGNE-FRANCHE-COMTÉ"@fr .
+
+:Department_39 a :Department ;
+    rdfs:label "39 - Jura"@fr ;
+    :locatedInRegion :Region_27 ;
+    :inseeCode "39" .
+
+:HousingData_39_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "11.78791835"^^xsd:decimal .
+
+:Department_39 :hasHousingData :HousingData_39_2021 .
+
+:Region_52 a :Region ;
+    rdfs:label "PAYS DE LA LOIRE"@fr .
+
+:Department_53 a :Department ;
+    rdfs:label "53 - Mayenne"@fr ;
+    :locatedInRegion :Region_52 ;
+    :inseeCode "53" .
+
+:HousingData_53_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "11.91440504"^^xsd:decimal .
+
+:Department_53 :hasHousingData :HousingData_53_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_16 a :Department ;
+    rdfs:label "16 - Charente"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "16" .
+
+:HousingData_16_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "9.763499372"^^xsd:decimal .
+
+:Department_16 :hasHousingData :HousingData_16_2021 .
+
+:Region_44 a :Region ;
+    rdfs:label "GRAND EST"@fr .
+
+:Department_54 a :Department ;
+    rdfs:label "54 - Meurthe-et-Moselle"@fr ;
+    :locatedInRegion :Region_44 ;
+    :inseeCode "54" .
+
+:HousingData_54_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "15.84957576"^^xsd:decimal .
+
+:Department_54 :hasHousingData :HousingData_54_2021 .
+
+:Region_75 a :Region ;
+    rdfs:label "NOUVELLE-AQUITAINE"@fr .
+
+:Department_23 a :Department ;
+    rdfs:label "23 - Creuse"@fr ;
+    :locatedInRegion :Region_75 ;
+    :inseeCode "23" .
+
+:HousingData_23_2021 a :HousingData ;
+    :year "2021"^^xsd:gYear ;
+    :proportionHLM "9.645514458"^^xsd:decimal .
+
+:Department_23 :hasHousingData :HousingData_23_2021 .

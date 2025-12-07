@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrélation Sport & HLM</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.2s;
+        }
+        
+        .back-btn:hover {
+            background: #f8fafc;
+            transform: translateX(-5px);
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .insight-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .insight-card h3 {
+            font-size: 1.5rem;
+            color: #1e293b;
+            margin-bottom: 1rem;
+        }
+        
+        .insight-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
+        }
+        
+        .insight-description {
+            color: #64748b;
+            line-height: 1.6;
+        }
+        
+        .chart-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .chart-section h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chart-container {
+            height: 400px;
+            position: relative;
+        }
+        
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            padding: 3rem;
+        }
+        
+        .correlation-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-left: 1rem;
+        }
+        
+        .correlation-positive {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .correlation-negative {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .correlation-neutral {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .ranking-table th {
+            background: #f8fafc;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #1e293b;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .ranking-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #64748b;
+        }
+        
+        .ranking-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        .medal {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Retour au Dashboard</a>
+        
+        <div class="header">
+            <h1>📊 Corrélation Sport & Logement Social</h1>
+            <p>Analyse de la relation entre pratique sportive et taux de HLM</p>
+        </div>
+        
+        <div id="loading" class="loading">
+            Analyse des corrélations en cours...
+        </div>
+        
+        <div id="content" style="display: none;">
+            <!-- Insights principaux -->
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3>📈 Coefficient de corrélation</h3>
+                    <div class="insight-value" id="correlationCoef">-</div>
+                    <div class="insight-description" id="correlationText">Calcul en cours...</div>
+                </div>
+                
+                <div class="insight-card">
+                    <h3>🏘️ Département + HLM</h3>
+                    <div class="insight-value" id="maxHLMDept">-</div>
+                    <div class="insight-description" id="maxHLMValue">-</div>
+                </div>
+                
+                <div class="insight-card">
+                    <h3>🏃 Département + Sportif</h3>
+                    <div class="insight-value" id="maxSportDept">-</div>
+                    <div class="insight-description" id="maxSportValue">-</div>
+                </div>
+            </div>
+            
+            <!-- Graphique de corrélation -->
+            <div class="chart-section full-width">
+                <h2>
+                    Nuage de points : Taux HLM vs Densité Licenciés
+                    <span class="correlation-badge" id="correlationBadge">-</span>
+                </h2>
+                <div class="chart-container">
+                    <canvas id="scatterChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Classements -->
+            <div class="chart-section">
+                <h2>🏆 Top 10 - Plus sportifs</h2>
+                <table class="ranking-table" id="topSportTable">
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Département</th>
+                            <th>Licenciés / 1000 hab.</th>
+                            <th>Taux HLM</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <div class="chart-section">
+                <h2>🏘️ Top 10 - Plus de HLM</h2>
+                <table class="ranking-table" id="topHLMTable">
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Département</th>
+                            <th>Taux HLM</th>
+                            <th>Licenciés / 1000 hab.</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <!-- Comparaison par tranche -->
+            <div class="chart-section full-width">
+                <h2>📊 Analyse par tranche de taux HLM</h2>
+                <div class="chart-container">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const ENDPOINT = "http://localhost:7200/repositories/Gon";
+        
+        async function runQuery(sparql) {
+            try {
+                console.log("🔍 Executing SPARQL query...");
+                console.log("📝 Query:", sparql.substring(0, 200) + "...");
+                
+                const response = await fetch(ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/sparql-query',
+                        'Accept': 'application/sparql-results+json'
+                    },
+                    body: sparql
+                });
+                
+                console.log("📡 Response status:", response.status, response.statusText);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("❌ HTTP Error:", response.status, errorText);
+                    return [];
+                }
+                
+                const data = await response.json();
+                console.log("✅ Query successful, results:", data.results.bindings.length);
+                console.log("📦 Sample data:", data.results.bindings.slice(0, 2));
+                return data.results.bindings;
+            } catch (error) {
+                console.error("❌ SPARQL Error:", error);
+                return [];
+            }
+        }
+        
+        async function loadCorrelationData() {
+            console.log("📊 Loading correlation data...");
+            
+            // Récupérer les données pour chaque département
+            const query = `
+                PREFIX : <http://example.org/sport-hlm#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                SELECT ?depLabel ?code ?tauxHLM ?population (SUM(?licences) AS ?totalLicences) WHERE {
+                    ?dep a :Department ;
+                         rdfs:label ?depLabel ;
+                         :inseeCode ?code ;
+                         :population ?population .
+                    
+                    # Données HLM
+                    ?depHlm :hasHousingData ?hd .
+                    ?hd :proportionHLM ?tauxHLM .
+                    BIND(STRAFTER(STR(?depHlm), "Department_") AS ?hlmCode)
+                    FILTER(?code = ?hlmCode)
+                    
+                    # Données sport
+                    ?part a :SportParticipation ;
+                          :numLicences ?licences ;
+                          :hasPopulationGroup ?group .
+                    ?group :locatedInDepartment ?dep .
+                    
+                } GROUP BY ?depLabel ?code ?tauxHLM ?population
+                ORDER BY ?code
+            `;
+            
+            const results = await runQuery(query);
+            console.log("✅ Found", results.length, "departments with complete data");
+            console.log("📦 Raw results sample:", JSON.stringify(results.slice(0, 2), null, 2));
+            
+            if (results.length === 0) {
+                console.error("⚠️ No results! Check if data exists in GraphDB");
+                document.getElementById('correlationChart').innerHTML = '<p style="color:red;text-align:center;padding:50px;">Aucune donnée trouvée</p>';
+                return [];
+            }
+            
+            // Transformer les données
+            const data = results.map(r => ({
+                name: r.depLabel.value,
+                code: r.code.value,
+                hlm: parseFloat(r.tauxHLM.value),
+                population: parseInt(r.population.value),
+                licences: parseInt(r.totalLicences.value),
+                density: (parseInt(r.totalLicences.value) / parseInt(r.population.value)) * 1000
+            }));
+            
+            return data;
+        }
+        
+        function calculateCorrelation(data) {
+            const n = data.length;
+            const sumX = data.reduce((sum, d) => sum + d.hlm, 0);
+            const sumY = data.reduce((sum, d) => sum + d.density, 0);
+            const sumXY = data.reduce((sum, d) => sum + d.hlm * d.density, 0);
+            const sumX2 = data.reduce((sum, d) => sum + d.hlm * d.hlm, 0);
+            const sumY2 = data.reduce((sum, d) => sum + d.density * d.density, 0);
+            
+            const numerator = n * sumXY - sumX * sumY;
+            const denominator = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY));
+            
+            return numerator / denominator;
+        }
+        
+        function displayInsights(data, correlation) {
+            // Coefficient de corrélation
+            document.getElementById('correlationCoef').textContent = correlation.toFixed(3);
+            
+            let correlationType, badgeClass, correlationText;
+            if (Math.abs(correlation) < 0.3) {
+                correlationType = "Corrélation faible";
+                badgeClass = "correlation-neutral";
+                correlationText = "Pas de lien significatif entre taux de HLM et pratique sportive.";
+            } else if (correlation > 0) {
+                correlationType = "Corrélation positive";
+                badgeClass = "correlation-positive";
+                correlationText = "Plus le taux de HLM est élevé, plus la pratique sportive est importante.";
+            } else {
+                correlationType = "Corrélation négative";
+                badgeClass = "correlation-negative";
+                correlationText = "Plus le taux de HLM est élevé, moins la pratique sportive est importante.";
+            }
+            
+            document.getElementById('correlationText').textContent = correlationText;
+            document.getElementById('correlationBadge').textContent = correlationType;
+            document.getElementById('correlationBadge').className = `correlation-badge ${badgeClass}`;
+            
+            // Département avec le plus de HLM
+            const maxHLM = data.reduce((max, d) => d.hlm > max.hlm ? d : max);
+            document.getElementById('maxHLMDept').textContent = maxHLM.name;
+            document.getElementById('maxHLMValue').textContent = `${maxHLM.hlm.toFixed(1)}% de logements sociaux`;
+            
+            // Département le plus sportif
+            const maxSport = data.reduce((max, d) => d.density > max.density ? d : max);
+            document.getElementById('maxSportDept').textContent = maxSport.name;
+            document.getElementById('maxSportValue').textContent = `${maxSport.density.toFixed(0)} licenciés / 1000 hab.`;
+        }
+        
+        function createScatterChart(data) {
+            const ctx = document.getElementById('scatterChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Départements',
+                        data: data.map(d => ({ x: d.hlm, y: d.density, label: d.name })),
+                        backgroundColor: 'rgba(102, 126, 234, 0.6)',
+                        borderColor: 'rgba(102, 126, 234, 1)',
+                        borderWidth: 2,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const point = context.raw;
+                                    return [
+                                        point.label,
+                                        `HLM: ${point.x.toFixed(1)}%`,
+                                        `Licenciés: ${point.y.toFixed(0)}/1000 hab.`
+                                    ];
+                                }
+                            }
+                        },
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Taux de logements sociaux (%)',
+                                font: { size: 14, weight: 'bold' }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Licenciés sportifs / 1000 habitants',
+                                font: { size: 14, weight: 'bold' }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function createRankings(data) {
+            // Top 10 sportifs
+            const topSport = [...data].sort((a, b) => b.density - a.density).slice(0, 10);
+            const topSportTable = document.getElementById('topSportTable').querySelector('tbody');
+            
+            topSport.forEach((d, i) => {
+                const medals = ['🥇', '🥈', '🥉'];
+                const medal = i < 3 ? medals[i] : '';
+                const row = `
+                    <tr>
+                        <td><span class="medal">${medal}</span>${i + 1}</td>
+                        <td><strong>${d.name}</strong> (${d.code})</td>
+                        <td>${d.density.toFixed(0)}</td>
+                        <td>${d.hlm.toFixed(1)}%</td>
+                    </tr>
+                `;
+                topSportTable.innerHTML += row;
+            });
+            
+            // Top 10 HLM
+            const topHLM = [...data].sort((a, b) => b.hlm - a.hlm).slice(0, 10);
+            const topHLMTable = document.getElementById('topHLMTable').querySelector('tbody');
+            
+            topHLM.forEach((d, i) => {
+                const medals = ['🥇', '🥈', '🥉'];
+                const medal = i < 3 ? medals[i] : '';
+                const row = `
+                    <tr>
+                        <td><span class="medal">${medal}</span>${i + 1}</td>
+                        <td><strong>${d.name}</strong> (${d.code})</td>
+                        <td>${d.hlm.toFixed(1)}%</td>
+                        <td>${d.density.toFixed(0)}</td>
+                    </tr>
+                `;
+                topHLMTable.innerHTML += row;
+            });
+        }
+        
+        function createBarChart(data) {
+            // Grouper par tranche de HLM
+            const ranges = [
+                { label: '0-10%', min: 0, max: 10, data: [] },
+                { label: '10-15%', min: 10, max: 15, data: [] },
+                { label: '15-20%', min: 15, max: 20, data: [] },
+                { label: '20-25%', min: 20, max: 25, data: [] },
+                { label: '25%+', min: 25, max: 100, data: [] }
+            ];
+            
+            data.forEach(d => {
+                const range = ranges.find(r => d.hlm >= r.min && d.hlm < r.max);
+                if (range) range.data.push(d);
+            });
+            
+            const avgDensity = ranges.map(r => {
+                if (r.data.length === 0) return 0;
+                return r.data.reduce((sum, d) => sum + d.density, 0) / r.data.length;
+            });
+            
+            const ctx = document.getElementById('barChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ranges.map(r => `${r.label} (n=${r.data.length})`),
+                    datasets: [{
+                        label: 'Densité moyenne de licenciés',
+                        data: avgDensity,
+                        backgroundColor: 'rgba(102, 126, 234, 0.6)',
+                        borderColor: 'rgba(102, 126, 234, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Tranche de taux HLM',
+                                font: { size: 14, weight: 'bold' }
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Licenciés / 1000 habitants (moyenne)',
+                                font: { size: 14, weight: 'bold' }
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        
+        async function init() {
+            try {
+                const data = await loadCorrelationData();
+                
+                if (data.length === 0) {
+                    document.getElementById('loading').textContent = 
+                        "Aucune donnée disponible. Vérifiez que GraphDB contient des données complètes.";
+                    return;
+                }
+                
+                const correlation = calculateCorrelation(data);
+                console.log("📊 Correlation coefficient:", correlation);
+                
+                displayInsights(data, correlation);
+                createScatterChart(data);
+                createRankings(data);
+                createBarChart(data);
+                
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+                
+            } catch (error) {
+                console.error("❌ Error:", error);
+                document.getElementById('loading').textContent = 
+                    "Erreur lors du chargement des données. Vérifiez la console.";
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports les plus pratiqués</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: all 0.2s;
+        }
+        
+        .back-btn:hover {
+            background: #f8fafc;
+            transform: translateX(-5px);
+        }
+        
+        .filters-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .filter-group label {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .filter-group select {
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            background: white;
+        }
+        
+        .filter-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .chart-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        
+        .chart-section h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chart-container {
+            height: 400px;
+            position: relative;
+        }
+        
+        .sports-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .sports-table th {
+            background: #f8fafc;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: #1e293b;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .sports-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            color: #64748b;
+        }
+        
+        .sports-table tr:hover {
+            background: #f8fafc;
+        }
+        
+        .rank-badge {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .rank-1 { background: #fbbf24; }
+        .rank-2 { background: #94a3b8; }
+        .rank-3 { background: #d97706; }
+        .rank-other { background: #cbd5e1; color: #475569; }
+        
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            padding: 3rem;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+        }
+        
+        .active-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .filter-tag {
+            background: #e0e7ff;
+            color: #4f46e5;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-btn">← Retour au Dashboard</a>
+        
+        <div class="header">
+            <h1>🏅 Sports les plus pratiqués</h1>
+            <p>Analyse détaillée avec filtres multiples</p>
+        </div>
+        
+        <!-- Filtres -->
+        <div class="filters-section">
+            <h2 style="margin-bottom: 1rem; color: #1e293b;">🔍 Filtres de recherche</h2>
+            
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>📍 Région</label>
+                    <select id="filterRegion">
+                        <option value="">Toutes les régions</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>🗺️ Département</label>
+                    <select id="filterDepartment">
+                        <option value="">Tous les départements</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>👤 Sexe</label>
+                    <select id="filterSex">
+                        <option value="">Tous</option>
+                        <option value="H">Hommes</option>
+                        <option value="F">Femmes</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>🎂 Tranche d'âge</label>
+                    <select id="filterAge">
+                        <option value="">Tous les âges</option>
+                        <option value="0-4">0-4 ans</option>
+                        <option value="5-9">5-9 ans</option>
+                        <option value="10-14">10-14 ans</option>
+                        <option value="15-19">15-19 ans</option>
+                        <option value="20-29">20-29 ans</option>
+                        <option value="30-44">30-44 ans</option>
+                        <option value="45-59">45-59 ans</option>
+                        <option value="60-74">60-74 ans</option>
+                        <option value="75 et +">75 ans et +</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label>📊 Limiter à</label>
+                    <select id="filterLimit">
+                        <option value="10">Top 10</option>
+                        <option value="20">Top 20</option>
+                        <option value="30">Top 30</option>
+                        <option value="50">Top 50</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="filter-buttons">
+                <button class="btn btn-primary" onclick="applyFilters()">
+                    🔍 Appliquer les filtres
+                </button>
+                <button class="btn btn-secondary" onclick="resetFilters()">
+                    🔄 Réinitialiser
+                </button>
+            </div>
+            
+            <div class="active-filters" id="activeFilters"></div>
+        </div>
+        
+        <div id="loading" class="loading">
+            Sélectionnez vos filtres et cliquez sur "Appliquer" pour commencer l'analyse
+        </div>
+        
+        <div id="content" style="display: none;">
+            <!-- Stats rapides -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Licenciés</h3>
+                    <div class="stat-value" id="statTotal">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Nombre de sports</h3>
+                    <div class="stat-value" id="statSports">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Sport #1</h3>
+                    <div class="stat-value" id="statTop1" style="font-size: 1.5rem;">-</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Moyenne par sport</h3>
+                    <div class="stat-value" id="statAvg">-</div>
+                </div>
+            </div>
+            
+            <!-- Graphique -->
+            <div class="chart-section">
+                <h2>📊 Classement des sports</h2>
+                <div class="chart-container">
+                    <canvas id="sportsChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Tableau détaillé -->
+            <div class="chart-section">
+                <h2>📋 Détails par sport</h2>
+                <table class="sports-table" id="sportsTable">
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Sport</th>
+                            <th>Nombre de licenciés</th>
+                            <th>% du total</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const ENDPOINT = "http://localhost:7200/repositories/Gon";
+        let allRegions = [];
+        let allDepartments = [];
+        let currentData = [];
+        
+        async function runQuery(sparql) {
+            try {
+                console.log("🔍 Executing SPARQL query...");
+                console.log("📝 Query length:", sparql.length, "chars");
+                
+                const response = await fetch(ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/sparql-query',
+                        'Accept': 'application/sparql-results+json'
+                    },
+                    body: sparql
+                });
+                
+                if (!response.ok) {
+                    console.error("❌ HTTP Error:", response.status, response.statusText);
+                    return [];
+                }
+                
+                const data = await response.json();
+                console.log("✅ Query successful, results:", data.results.bindings.length);
+                return data.results.bindings;
+            } catch (error) {
+                console.error("❌ SPARQL Error:", error);
+                return [];
+            }
+        }
+        
+        async function loadFiltersData() {
+            console.log("🔍 Loading filters data...");
+            
+            // Charger les régions
+            const regionsQuery = `
+                PREFIX : <http://example.org/sport-hlm#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                SELECT DISTINCT ?label WHERE {
+                    ?reg a :Region ;
+                         rdfs:label ?label .
+                    FILTER(!REGEX(STR(?label), "^[0-9]") && STR(?label) = UCASE(STR(?label)))
+                } ORDER BY ?label
+            `;
+            
+            const regions = await runQuery(regionsQuery);
+            allRegions = regions.map(r => r.label.value);
+            
+            const regionSelect = document.getElementById('filterRegion');
+            allRegions.forEach(region => {
+                const option = document.createElement('option');
+                option.value = region;
+                option.textContent = region;
+                regionSelect.appendChild(option);
+            });
+            
+            console.log("✅ Loaded", allRegions.length, "regions");
+            
+            // Charger les départements
+            const deptsQuery = `
+                PREFIX : <http://example.org/sport-hlm#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                SELECT DISTINCT ?code ?label WHERE {
+                    ?dep a :Department ;
+                         :inseeCode ?code ;
+                         rdfs:label ?label .
+                } ORDER BY ?code
+            `;
+            
+            const depts = await runQuery(deptsQuery);
+            allDepartments = depts.map(d => ({ code: d.code.value, label: d.label.value }));
+            
+            const deptSelect = document.getElementById('filterDepartment');
+            allDepartments.forEach(dept => {
+                const option = document.createElement('option');
+                option.value = dept.code;
+                option.textContent = `${dept.code} - ${dept.label}`;
+                deptSelect.appendChild(option);
+            });
+            
+            console.log("✅ Loaded", allDepartments.length, "departments");
+        }
+        
+        async function applyFilters() {
+            const region = document.getElementById('filterRegion').value;
+            const department = document.getElementById('filterDepartment').value;
+            const sex = document.getElementById('filterSex').value;
+            const age = document.getElementById('filterAge').value;
+            const limit = document.getElementById('filterLimit').value;
+            
+            console.log("🔍 Applying filters:", { region, department, sex, age, limit });
+            
+            document.getElementById('loading').innerHTML = 'Chargement des données...';
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('content').style.display = 'none';
+            
+            // Construire la requête SPARQL avec filtres - VERSION CORRIGÉE
+            let query = `PREFIX : <http://example.org/sport-hlm#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?sportLabel (SUM(?licences) AS ?total) WHERE {
+    ?part a :SportParticipation ;
+          :numLicences ?licences ;
+          :hasSport ?sport ;
+          :hasPopulationGroup ?group .
+    ?sport rdfs:label ?sportLabel .
+    ?group :locatedInDepartment ?dep .\n`;
+            
+            // Ajouter les filtres conditionnels
+            if (sex) {
+                query += `    ?group :sex "${sex}" .\n`;
+                console.log("✅ Adding sex filter:", sex);
+            }
+            
+            if (age) {
+                // Convertir la tranche d'âge en comparaison numérique
+                const ageRanges = {
+                    "0-4": { min: 0, max: 4 },
+                    "5-9": { min: 5, max: 9 },
+                    "10-14": { min: 10, max: 14 },
+                    "15-19": { min: 15, max: 19 },
+                    "20-29": { min: 20, max: 29 },
+                    "30-44": { min: 30, max: 44 },
+                    "45-59": { min: 45, max: 59 },
+                    "60-74": { min: 60, max: 74 },
+                    "75 et +": { min: 75, max: 150 }
+                };
+                
+                const range = ageRanges[age];
+                if (range) {
+                    query += `    ?group :age ?age .\n`;
+                    query += `    FILTER(?age >= ${range.min} && ?age <= ${range.max})\n`;
+                    console.log("✅ Adding age filter:", age, "→", range);
+                }
+            }
+            
+            if (department) {
+                query += `    ?dep :inseeCode "${department}" .\n`;
+                console.log("✅ Adding department filter:", department);
+            } else if (region) {
+                query += `    ?dep :locatedInRegion ?reg .\n`;
+                query += `    ?reg rdfs:label "${region}"@fr .\n`;
+                console.log("✅ Adding region filter:", region);
+            }
+            
+            query += `} GROUP BY ?sportLabel 
+ORDER BY DESC(?total) 
+LIMIT ${limit}`;
+            
+            console.log("📊 Final query:");
+            console.log(query);
+            
+            const results = await runQuery(query);
+            console.log("✅ Got", results.length, "sports");
+            
+            if (results.length === 0) {
+                document.getElementById('loading').innerHTML = 
+                    '<div class="no-data">Aucun résultat avec ces filtres. Essayez d\'autres critères.</div>';
+                return;
+            }
+            
+            currentData = results.map(r => ({
+                sport: r.sportLabel.value,
+                total: parseInt(r.total.value)
+            }));
+            
+            displayResults();
+            updateActiveFilters({ region, department, sex, age, limit });
+        }
+        
+        function displayResults() {
+            const totalLicences = currentData.reduce((sum, d) => sum + d.total, 0);
+            const nbSports = currentData.length;
+            const avgPerSport = Math.round(totalLicences / nbSports);
+            
+            // Stats
+            document.getElementById('statTotal').textContent = totalLicences.toLocaleString('fr-FR');
+            document.getElementById('statSports').textContent = nbSports;
+            document.getElementById('statTop1').textContent = currentData[0].sport;
+            document.getElementById('statAvg').textContent = avgPerSport.toLocaleString('fr-FR');
+            
+            // Graphique
+            createChart();
+            
+            // Tableau
+            createTable(totalLicences);
+            
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        }
+        
+        function createChart() {
+            const ctx = document.getElementById('sportsChart');
+            
+            // Détruire le graphique existant
+            if (window.sportsChartInstance) {
+                window.sportsChartInstance.destroy();
+            }
+            
+            window.sportsChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: currentData.map(d => d.sport),
+                    datasets: [{
+                        label: 'Nombre de licenciés',
+                        data: currentData.map(d => d.total),
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                        borderColor: 'rgba(102, 126, 234, 1)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.x.toLocaleString('fr-FR') + ' licenciés';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value.toLocaleString('fr-FR');
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function createTable(totalLicences) {
+            const tbody = document.getElementById('sportsTable').querySelector('tbody');
+            tbody.innerHTML = '';
+            
+            currentData.forEach((d, i) => {
+                const percentage = ((d.total / totalLicences) * 100).toFixed(1);
+                let rankBadge = `<span class="rank-badge rank-other">${i + 1}</span>`;
+                
+                if (i === 0) rankBadge = `<span class="rank-badge rank-1">🥇</span>`;
+                else if (i === 1) rankBadge = `<span class="rank-badge rank-2">🥈</span>`;
+                else if (i === 2) rankBadge = `<span class="rank-badge rank-3">🥉</span>`;
+                
+                const row = `
+                    <tr>
+                        <td>${rankBadge}</td>
+                        <td><strong>${d.sport}</strong></td>
+                        <td>${d.total.toLocaleString('fr-FR')}</td>
+                        <td>${percentage}%</td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+        
+        function updateActiveFilters(filters) {
+            const container = document.getElementById('activeFilters');
+            container.innerHTML = '';
+            
+            if (filters.region) {
+                container.innerHTML += `<span class="filter-tag">📍 ${filters.region}</span>`;
+            }
+            if (filters.department) {
+                const dept = allDepartments.find(d => d.code === filters.department);
+                container.innerHTML += `<span class="filter-tag">🗺️ ${dept ? dept.label : filters.department}</span>`;
+            }
+            if (filters.sex) {
+                const sexLabel = filters.sex === 'M' ? 'Hommes' : 'Femmes';
+                container.innerHTML += `<span class="filter-tag">👤 ${sexLabel}</span>`;
+            }
+            if (filters.age) {
+                container.innerHTML += `<span class="filter-tag">🎂 ${filters.age} ans</span>`;
+            }
+            container.innerHTML += `<span class="filter-tag">📊 Top ${filters.limit}</span>`;
+        }
+        
+        function resetFilters() {
+            document.getElementById('filterRegion').value = '';
+            document.getElementById('filterDepartment').value = '';
+            document.getElementById('filterSex').value = '';
+            document.getElementById('filterAge').value = '';
+            document.getElementById('filterLimit').value = '10';
+            document.getElementById('activeFilters').innerHTML = '';
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('loading').innerHTML = 
+                'Sélectionnez vos filtres et cliquez sur "Appliquer" pour commencer l\'analyse';
+            document.getElementById('loading').style.display = 'block';
+            console.log("🔄 Filters reset");
+        }
+        
+        async function init() {
+            await loadFiltersData();
+            document.getElementById('loading').style.display = 'none';
+            // Ne pas charger automatiquement, attendre le clic sur "Appliquer"
+        }
+        
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

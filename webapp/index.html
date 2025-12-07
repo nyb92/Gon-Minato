@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sport & HLM - Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>🏅 Analyse Sport & Logement Social</h1>
+        <p>Exploration des données ouvertes (2023)</p>
+        <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="map.html" style="display: inline-block; background: white; color: #1e293b; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s;">
+                🗺️ Carte Interactive
+            </a>
+            <a href="sports.html" style="display: inline-block; background: linear-gradient(135deg, #4ade80, #22c55e); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s; box-shadow: 0 4px 12px rgba(74, 222, 128, 0.4);">
+                🏅 Sports + Pratiqués
+            </a>
+            <a href="stories.html" style="display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s; box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);">
+                📖 Stories du Sport
+            </a>
+            <a href="correlation.html" style="display: inline-block; background: linear-gradient(135deg, #f093fb, #f5576c); color: white; padding: 0.75rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s; box-shadow: 0 4px 12px rgba(240, 147, 251, 0.4);">
+                📊 Corrélation Sport/HLM
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- CONTROLS -->
+        <section class="controls">
+            <div class="selector-group">
+                <label for="regionSelect">📍 Région A :</label>
+                <select id="regionSelect">
+                    <option value="" disabled selected>Chargement...</option>
+                </select>
+            </div>
+
+            <div class="selector-group hidden" id="group-region-2">
+                <label for="regionSelect2">📍 Région B :</label>
+                <select id="regionSelect2">
+                    <option value="" disabled selected>-- Comparer avec... --</option>
+                </select>
+            </div>
+
+            <div class="toggle-group">
+                <label class="switch">
+                    <input type="checkbox" id="compareToggle">
+                    <span class="slider round"></span>
+                </label>
+                <span>Mode Comparaison</span>
+            </div>
+
+            <button onclick="runAnalysis()" class="btn-primary">📊 Analyser</button>
+        </section>
+
+        <!-- LOADING -->
+        <div id="loading" class="hidden">
+            <div class="spinner"></div>
+            <p>Interrogation du Web Sémantique en cours...</p>
+        </div>
+
+        <!-- DASHBOARD -->
+        <div id="dashboard" class="hidden">
+            
+            <!-- INSIGHTS -->
+            <div class="insight-card">
+                <h3>💡 Analyse Automatique</h3>
+                <p id="insight-text">Sélectionnez une région pour voir les insights.</p>
+            </div>
+
+            <!-- COMPARISON METRICS (Hidden by default) -->
+            <div id="comparison-metrics" class="metrics-grid hidden">
+                <div class="metric-card">
+                    <h3>🏆 Licences (Diff)</h3>
+                    <p id="comp-diff-licences">-</p>
+                </div>
+                <div class="metric-card">
+                    <h3>🏢 HLM (Diff)</h3>
+                    <p id="comp-diff-hlm">-</p>
+                </div>
+            </div>
+
+            <!-- SINGLE VIEW METRICS -->
+            <div id="single-metrics" class="metrics-grid">
+                <div class="metric-card">
+                    <h3>🏆 Total Licences</h3>
+                    <p id="kpi-licences">-</p>
+                </div>
+                <div class="metric-card">
+                    <h3>🏢 Taux HLM Moyen</h3>
+                    <p id="kpi-hlm">-</p>
+                </div>
+                <div class="metric-card">
+                    <h3>⚽ Sport Top 1</h3>
+                    <p id="kpi-top-sport">-</p>
+                </div>
+            </div>
+
+            <!-- CHARTS ROW 1 -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>📊 Pyramide des Âges</h3>
+                    <canvas id="ageChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>🏆 Top Sports</h3>
+                        <div class="gender-toggle">
+                            <button class="btn-sm active" data-sex="All">Tous</button>
+                            <button class="btn-sm" data-sex="H">H</button>
+                            <button class="btn-sm" data-sex="F">F</button>
+                        </div>
+                    </div>
+                    <canvas id="sportChart"></canvas>
+                </div>
+            </div>
+
+            <!-- CHARTS ROW 2 -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>🚻 Répartition H/F</h3>
+                    <canvas id="genderChart"></canvas>
+                </div>
+                <!-- RADAR CHART (Visible in Comparison Mode) -->
+                <div class="chart-card" id="radar-container">
+                    <h3>🕸️ Comparaison Globale</h3>
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RANKING SECTION -->
+        <section id="ranking-section" class="mt-4">
+            <h2>🏆 Classement National des Régions</h2>
+            <div class="table-container">
+                <table id="rankingTable">
+                    <thead>
+                        <tr>
+                            <th>Rang</th>
+                            <th>Région</th>
+                            <th>Licences Totales</th>
+                            <th>Taux HLM (%)</th>
+                            <th>Sport Favori</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

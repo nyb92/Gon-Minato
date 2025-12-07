@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte Interactive - Sport & HLM</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100vh;
+            z-index: 1;
+        }
+        
+        /* Control Panel */
+        .map-controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            min-width: 280px;
+        }
+        
+        .map-controls h2 {
+            margin: 0 0 1rem 0;
+            font-size: 1.2rem;
+            color: #1e293b;
+        }
+        
+        .map-controls label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .map-controls select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .legend {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .legend-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.4rem;
+            font-size: 0.8rem;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        /* Side Panel for Region Details */
+        .region-panel {
+            position: absolute;
+            top: 20px;
+            right: -400px;
+            width: 380px;
+            height: calc(100vh - 40px);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+        
+        .region-panel.active {
+            right: 20px;
+        }
+        
+        .region-panel .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+            padding: 0.25rem;
+            line-height: 1;
+        }
+        
+        .region-panel .close-btn:hover {
+            color: #1e293b;
+        }
+        
+        .region-panel h2 {
+            margin: 0 0 1rem 0;
+            color: #1e293b;
+            font-size: 1.4rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .stat-box {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-box h4 {
+            margin: 0;
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .stat-box p {
+            margin: 0.5rem 0 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        
+        .chart-container {
+            margin-bottom: 1.5rem;
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        .chart-container h3 {
+            margin: 0 0 1rem 0;
+            font-size: 1rem;
+            color: #334155;
+        }
+        
+        .chart-container canvas {
+            max-height: 200px;
+        }
+        
+        /* Loading overlay */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .loading-overlay.hidden {
+            display: none;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #e2e8f0;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin { 
+            100% { transform: rotate(360deg); } 
+        }
+        
+        /* Back button */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: white;
+            color: #3b82f6;
+            border: 2px solid #3b82f6;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+            z-index: 1000;
+            transition: all 0.2s;
+        }
+        
+        .back-btn:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(59,130,246,0.3);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p style="margin-top: 1rem; color: #64748b;">Chargement des données...</p>
+    </div>
+    
+    <a href="index.html" class="back-btn">← Dashboard</a>
+    
+    <div class="map-controls">
+        <h2>🗺️ Carte Interactive</h2>
+        
+        <label>Niveau de visualisation :</label>
+        <select id="viewLevel">
+            <option value="region">Par Région</option>
+            <option value="department">Par Département</option>
+        </select>
+        
+        <label>Mode d'affichage :</label>
+        <select id="displayMode">
+            <option value="hlm">Taux HLM (%)</option>
+            <option value="licences">Densité Licenciés</option>
+            <option value="ratio">Ratio F/H</option>
+        </select>
+        
+        <div class="legend">
+            <div class="legend-title">Légende</div>
+            <div id="legendContent">
+                <!-- Generated by JS -->
+            </div>
+        </div>
+        
+        <button id="clearCache" style="
+            margin-top: 1rem;
+            width: 100%;
+            padding: 0.5rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            color: #64748b;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        " onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f8fafc'">
+            🗑️ Vider le cache
+        </button>
+    </div>
+    
+    <div class="region-panel" id="regionPanel">
+        <button class="close-btn" onclick="closePanel()">×</button>
+        <h2 id="panelTitle">-</h2>
+        
+        <div class="stats-grid">
+            <div class="stat-box">
+                <h4>🏆 Licences</h4>
+                <p id="panelLicences">-</p>
+            </div>
+            <div class="stat-box">
+                <h4>🏢 Taux HLM</h4>
+                <p id="panelHLM">-</p>
+            </div>
+            <div class="stat-box">
+                <h4>👥 Population</h4>
+                <p id="panelPop">-</p>
+            </div>
+            <div class="stat-box">
+                <h4>⚽ Sport Top</h4>
+                <p id="panelTopSport">-</p>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h3>📊 Top 5 Sports</h3>
+            <canvas id="panelSportChart"></canvas>
+        </div>
+        
+        <div class="chart-container">
+            <h3>🚻 Répartition H/F</h3>
+            <canvas id="panelGenderChart"></canvas>
+        </div>
+        
+        <div class="chart-container">
+            <h3>👥 Pyramide des Âges</h3>
+            <canvas id="panelAgeChart"></canvas>
+        </div>
+    </div>
+    
+    <div id="map"></div>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="map.js"></script>
+</body>
+</html>

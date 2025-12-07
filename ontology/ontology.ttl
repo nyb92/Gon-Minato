@@ -1,0 +1,131 @@
+@prefix : <http://example.org/sport-hlm#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+
+############################################################
+########################  CLASSES  #########################
+############################################################
+
+:Region a rdfs:Class ;
+    rdfs:label "Région administrative"@fr .
+
+:Department a rdfs:Class ;
+    rdfs:label "Département administratif"@fr .
+
+:HousingData a rdfs:Class ;
+    rdfs:label "Données de logement (HLM et indicateurs)"@fr .
+
+:PopulationGroup a rdfs:Class ;
+    rdfs:label "Groupe démographique (âge exact, sexe)"@fr .
+
+:Sport a rdfs:Class ;
+    rdfs:label "Discipline sportive"@fr .
+
+:SportParticipation a rdfs:Class ;
+    rdfs:label "Participation sportive annuelle"@fr .
+
+############################################################
+######################  PROPRIÉTÉS  ########################
+############################################################
+
+### Relations géographiques ###
+:hasDepartment a rdfs:Property ;
+    rdfs:domain :Region ;
+    rdfs:range :Department ;
+    rdfs:label "a pour département"@fr .
+
+:locatedInRegion a rdfs:Property ;
+    rdfs:domain :Department ;
+    rdfs:range :Region ;
+    rdfs:label "est situé dans la région"@fr .
+
+############################################################
+
+### Logement / HLM ###
+:hasHousingData a rdfs:Property ;
+    rdfs:domain :Region, :Department ;
+    rdfs:range :HousingData ;
+    rdfs:label "a des données de logement"@fr .
+
+:proportionHLM a rdfs:Property ;
+    rdfs:domain :HousingData ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "Taux de logements sociaux (%)"@fr .
+
+:year a rdfs:Property ;
+    rdfs:domain :HousingData, :SportParticipation ;
+    rdfs:range xsd:gYear ;
+    rdfs:label "Année"@fr .
+
+############################################################
+
+### Démographie ###
+:age a rdfs:Property ;
+    rdfs:domain :PopulationGroup ;
+    rdfs:range xsd:integer ;
+    rdfs:label "Âge exact"@fr .
+
+:sex a rdfs:Property ;
+    rdfs:domain :PopulationGroup ;
+    rdfs:range xsd:string ;
+    rdfs:label "Sexe"@fr .
+
+:locatedInDepartment a rdfs:Property ;
+    rdfs:domain :PopulationGroup ;
+    rdfs:range :Department ;
+    rdfs:label "groupe situé dans un département"@fr .
+
+############################################################
+
+### Sports ###
+:hasSport a rdfs:Property ;
+    rdfs:domain :SportParticipation ;
+    rdfs:range :Sport ;
+    rdfs:label "discipline sportive concernée"@fr .
+
+:hasPopulationGroup a rdfs:Property ;
+    rdfs:domain :SportParticipation ;
+    rdfs:range :PopulationGroup ;
+    rdfs:label "concerne ce groupe démographique"@fr .
+
+:numLicences a rdfs:Property ;
+    rdfs:domain :SportParticipation ;
+    rdfs:range xsd:integer ;
+    rdfs:label "Nombre de licences annuelles"@fr .
+
+############################################################
+
+### Enrichissement Wikidata ###
+:image a rdfs:Property ;
+    rdfs:domain :Region ;
+    rdfs:range xsd:anyURI ;
+    rdfs:label "Image (Wikidata)"@fr .
+
+:lat a rdfs:Property ;
+    rdfs:domain :Region ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "Latitude"@fr .
+
+:lon a rdfs:Property ;
+    rdfs:domain :Region ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "Longitude"@fr .
+
+################################################
+
+:population a owl:DatatypeProperty ;
+    rdfs:label "population officielle"@fr ;
+    rdfs:range xsd:integer .
+
+:area a owl:DatatypeProperty ;
+    rdfs:label "superficie (km²)"@fr ;
+    rdfs:range xsd:decimal .
+
+:coord a owl:DatatypeProperty ;
+    rdfs:label "coordonnées géographiques"@fr ;
+    rdfs:range xsd:string .
+
+:inseeCode a owl:DatatypeProperty ;
+    rdfs:label "code INSEE"@fr ;
+    rdfs:range xsd:string .

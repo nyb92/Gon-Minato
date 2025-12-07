@@ -1,0 +1,34 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Data files
+data/raw/
+data/processed/
+*.csv
+*.xlsx
+*.zip
+
+# Logs
+*.log
+proxy.log
+
+# Repository data
+repositories/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# GraphDB
+.graphdb/
